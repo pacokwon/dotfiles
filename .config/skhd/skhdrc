@@ -1,0 +1,35 @@
+alt - h : yabai -m window --focus west || yabai -m display --focus prev || yabai -m display --focus last
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east || yabai -m display --focus next || yabai -m display --focus first
+alt - 1 : yabai -m window --focus first
+
+alt - m : yabai -m window --focus mouse
+alt - n : yabai -m display --focus next || yabai -m display --focus first
+alt - p : yabai -m display --focus prev || yabai -m display --focus last
+
+alt - c : yabai -m space --create
+alt - d : yabai -m space --destroy
+alt - 0 : yabai -m space --balance
+alt - f : yabai -m window --toggle zoom-parent
+alt - o : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+
+shift + alt - h : yabai -m window west --resize right:-20:0 2> /dev/null || yabai -m window --resize right:-40:0
+shift + alt - j : yabai -m window north --resize bottom:0:-20 2> /dev/null || yabai -m window --resize bottom:0:40
+shift + alt - k : yabai -m window south --resize top:0:20 2> /dev/null || yabai -m window --resize top:0:-40
+shift + alt - l : yabai -m window east --resize left:20:0 2> /dev/null || yabai -m window --resize left:40:0
+
+ctrl + alt - h : yabai -m window --swap west
+ctrl + alt - j : yabai -m window --swap south
+ctrl + alt - k : yabai -m window --swap north
+ctrl + alt - l : yabai -m window --swap east
+ctrl + alt - h : yabai -m window --swap west
+ctrl + alt - n : yabai -m window --display next; yabai -m display --focus next
+ctrl + alt - p : yabai -m window --display prev; yabai -m display --focus prev
+
+ctrl + alt + cmd - l : yabai -m window --space next || yabai -m window --space first; yabai -m space --focus next || yabai -m space --focus first
+ctrl + alt + cmd - h : yabai -m window --space prev || yabai -m window --space last; yabai -m space --focus prev || yabai -m space --focus last
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+
+ctrl - right : yabai -m space --focus next || yabai -m space --focus first
+ctrl - left : yabai -m space --focus prev || yabai -m space --focus last

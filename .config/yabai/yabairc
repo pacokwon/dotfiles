@@ -1,0 +1,33 @@
+normal_border_color="010101"
+focused_border_color="808080"
+
+# general space settings
+yabai -m config layout                      bsp
+yabai -m config top_padding                 12
+yabai -m config left_padding                12
+yabai -m config right_padding               12
+yabai -m config window_gap                  06
+
+yabai -m config window_border               on
+yabai -m config active_window_border_color  "0xE0${focused_border_color}"
+yabai -m config normal_window_border_color  "0x00${normal_border_color}"
+
+yabai -m rule --add app="^KakaoTalk$"           manage=off
+yabai -m rule --add app="^Finder$"              manage=off
+yabai -m rule --add app="^System Preferences$"  manage=off
+
+# If no window on the current space is focused after a window is destroyed or
+# minimized, or an application is hidden, focus the window under the cursor.
+yabai -m signal --add event=window_destroyed \
+  action="${functions[focus_under_cursor]}"
+yabai -m signal --add event=window_minimized \
+  action="${functions[focus_under_cursor]}"
+yabai -m signal --add event=application_hidden \
+  action="${functions[focus_under_cursor]}"
+
+function focus_under_cursor {
+  if yabai -m query --windows --space |
+      jq -er 'map(select(.focused == 1)) | length == 0' >/dev/null; then
+    yabai -m window --focus mouse 2>/dev/null || true
+  fi
+}
