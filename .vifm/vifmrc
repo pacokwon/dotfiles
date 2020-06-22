@@ -1,0 +1,8 @@
+nnoremap ; :
+nnoremap : ;
+nnoremap w :view<CR>
+
+set tuioptions=u
+set fillchars='vborder:│'
+
+highlight Border cterm=none ctermfg=none ctermbg=none
