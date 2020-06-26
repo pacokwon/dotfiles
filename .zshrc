@@ -49,6 +49,7 @@ alias git="hub"
 alias cat="bat"
 alias ydl="youtube-dl"
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias ls='ls -G'
 
 # ====== exports ======
 export EDITOR="/usr/local/bin/nvim"
