@@ -15,6 +15,13 @@ font:
     y: 3
   use_thin_strokes: true
 
+shell:
+  program: /bin/zsh
+  args:
+    - --login
+    - -c
+    - "tmux -u || tmux -u attach"
+
 window:
   padding:
     x: 10
