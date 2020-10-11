@@ -6,3 +6,6 @@ set tuioptions=u
 set fillchars='vborder:│'
 
 highlight Border cterm=none ctermfg=none ctermbg=none
+fileviewer *.md,*.tsx,*.ts,*.py,*.c,*.cpp,*.json,*.jsx,*.js,*.html,*.css env -uCOLORTERM bat --color always --wrap never --pager never %c -p
+
+view
