@@ -1,7 +1,7 @@
-alt - h : yabai -m window --focus west || yabai -m display --focus prev || yabai -m display --focus last
+alt - h : yabai -m window --focus west || yabai -m space --focus prev || yabai -m space --focus last
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east || yabai -m display --focus next || yabai -m display --focus first
+alt - l : yabai -m window --focus east || yabai -m space --focus next || yabai -m space --focus first
 alt - 1 : yabai -m window --focus first
 
 alt - m : yabai -m window --focus mouse
@@ -27,9 +27,11 @@ ctrl + alt - h : yabai -m window --swap west
 ctrl + alt - n : yabai -m window --display next; yabai -m display --focus next
 ctrl + alt - p : yabai -m window --display prev; yabai -m display --focus prev
 
-ctrl + alt + cmd - l : yabai -m window --space next; yabai -m space --focus next
-ctrl + alt + cmd - h : yabai -m window --space prev; yabai -m space --focus prev
+ctrl + alt + cmd - l : yabai -m window --space next; yabai -m space --focus next; yabai -m window --focus mouse;
+ctrl + alt + cmd - h : yabai -m window --space prev; yabai -m space --focus prev; yabai -m window --focus mouse;
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
-ctrl - right : yabai -m space --focus next || yabai -m space --focus first
-ctrl - left : yabai -m space --focus prev || yabai -m space --focus last
+ctrl - right : yabai -m window --focus "$(yabai -m query --spaces --space next | jq -r '."first-window"')" \
+    || yabai -m space --focus next
+ctrl - left : yabai -m window --focus "$(yabai -m query --spaces --space prev | jq -r '."last-window"')" \
+    || yabai -m space --focus prev
