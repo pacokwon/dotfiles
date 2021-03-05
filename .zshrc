@@ -12,24 +12,8 @@ fi
 setopt auto_cd
 setopt COMPLETE_IN_WORD
 
-autoload -Uz compinit; compinit
-# # which completers to use
-# # for use with expand-or-complete-prefix :
-# zstyle ':completion:*' completer _complete _match _list _ignored _correct _approximate
-# # for use with expand-or-complete :
-# # zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
-# # _list anywhere to the completers always only lists completions on first tab
-
-# zstyle ':completion:*:prefix-complete:*' completer _complete
-# zstyle ':completion:*:prefix-approximate:*' completer _approximate
-
-# # configure the match completer, more flexible of GLOB_COMPLETE
-# # with original set to only it doesn't act like a `*' was inserted at the cursor position
-# zstyle ':completion:*:match:*' original only
-
-# # first case insensitive completion, then case-sensitive partial-word completion, then case-insensitive partial-word completion
-# # (with -_. as possible anchors)
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}={A-Z} r:|[-_.]=* r:|=*'
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
 # ====== Antibody ======
 # antibody init
@@ -43,13 +27,18 @@ antibody bundle Aloxaf/fzf-tab
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# ====== nvm ======
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # ====== aliases ======
 alias vim="nvim"
-alias git="hub"
 alias cat="bat"
 alias ydl="youtube-dl"
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias ls='ls -G'
+alias ssh='kitty +kitten ssh' # send terminfo on ssh. only use this alias on kitty
 
 # ====== exports ======
 export EDITOR="/usr/local/bin/nvim"
@@ -58,12 +47,23 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PYENV_ROOT="$HOME/.pyenv"
-export JAVA_HOME="/usr/local/Cellar/openjdk@11/11.0.7+10"
-export SCALA_HOME="/usr/local/scala"
-export SBT_HOME="/opt/sbt"
-export PATH="/usr/local/opt/openjdk/bin:$PYENV_ROOT/bin:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home"
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
+export GO111MODULE="on"
 export COLORTERM="truecolor"
 export BAT_THEME="DarkNeon"
+export MANPAGER='nvim +Man!'
+export LDFLAGS="-L/usr/local/opt/llvm/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include -isysroot"
+
+PATH="/usr/local/opt/openjdk/bin:$PATH"
+PATH="$PYENV_ROOT/bin:$PATH"
+PATH="$JAVA_HOME/bin:$PATH"
+PATH="$JAVA_HOME/bin:$PATH"
+PATH="/Applications/MATLAB.app/bin:$PATH"
+PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/Users/pacokwon/.local/bin:$PATH"
 
 # ====== fzf zsh ======
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -73,7 +73,7 @@ function gi() {
 }
 
 function vimrc() {
-    vim ~/.vimrc
+    vim ~/.config/nvim/init.vim
 }
 
 function zshrc() {
@@ -107,3 +107,18 @@ function cdf() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
+# set title for kitty tabs
+function set-title-precmd() {
+  printf "\e]2;%s\a" "${PWD/#$HOME/~}"
+}
+
+function set-title-preexec() {
+  printf "\e]2;%s\a" "$1"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd set-title-precmd
+add-zsh-hook preexec set-title-preexec
+
+# opam configuration
+test -r /Users/pacokwon/.opam/opam-init/init.zsh && . /Users/pacokwon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
