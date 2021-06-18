@@ -64,6 +64,8 @@ alias gd='git diff'
 alias vimrc='vim ~/.config/nvim/init.vim'
 alias zshrc='vim ~/.zshrc'
 alias cdn='cd ~/.config/nvim'
+alias lg='lazygit'
+
 
 # ====== fzf zsh ======
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
