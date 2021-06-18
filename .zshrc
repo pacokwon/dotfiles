@@ -58,6 +58,7 @@ alias ydl="youtube-dl"
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias ls='exa --icons --color always'
 alias ll='exa --icons --color always -l'
+alias less='less -r' # display color on less
 alias ssh='kitty +kitten ssh' # send terminfo on ssh. only use this alias on kitty
 alias gd='git diff'
 alias vimrc='vim ~/.config/nvim/init.vim'
