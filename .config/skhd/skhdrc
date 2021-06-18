@@ -2,11 +2,7 @@ alt - h : yabai -m window --focus west || yabai -m space --focus prev || yabai -
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east || yabai -m space --focus next || yabai -m space --focus first
-alt - 1 : yabai -m window --focus first
-
 alt - m : yabai -m window --focus mouse
-alt - n : yabai -m display --focus next || yabai -m display --focus first
-alt - p : yabai -m display --focus prev || yabai -m display --focus last
 
 alt - c : yabai -m space --create
 alt - d : yabai -m space --destroy
