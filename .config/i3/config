@@ -207,3 +207,4 @@ default_floating_border pixel 1
 
 exec --no-startup-id "setxkbmap -option ctrl:nocaps"
 exec_always feh --bg-scale --randomize ~/.wallpapers/*
+exec i3-msg workspace $ws1
