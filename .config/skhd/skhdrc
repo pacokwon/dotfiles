@@ -32,4 +32,4 @@ ctrl - right : yabai -m window --focus "$(yabai -m query --spaces --space next |
 ctrl - left : yabai -m window --focus "$(yabai -m query --spaces --space prev | jq -r '."last-window"')" \
     || yabai -m space --focus prev
 
-shift + cmd - t : open -a kitty
+cmd + ctrl - t : open -a kitty
