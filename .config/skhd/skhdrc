@@ -23,8 +23,8 @@ ctrl + alt - h : yabai -m window --swap west
 ctrl + alt - n : yabai -m window --display next; yabai -m display --focus next
 ctrl + alt - p : yabai -m window --display prev; yabai -m display --focus prev
 
-ctrl + alt + cmd - l : yabai -m window --space next; yabai -m space --focus next; yabai -m window --focus mouse;
-ctrl + alt + cmd - h : yabai -m window --space prev; yabai -m space --focus prev; yabai -m window --focus mouse;
+ctrl + alt + cmd - l : yabai -m window --space next; yabai -m space --focus next;
+ctrl + alt + cmd - h : yabai -m window --space prev; yabai -m space --focus prev;
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 ctrl - right : yabai -m window --focus "$(yabai -m query --spaces --space next | jq -r '."first-window"')" \
