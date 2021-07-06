@@ -27,7 +27,7 @@ antibody bundle zsh-users/zsh-syntax-highlighting
 antibody bundle Aloxaf/fzf-tab
 
 # ====== pyenv ======
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 # ====== nvm ======
