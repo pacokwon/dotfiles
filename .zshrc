@@ -1,5 +1,3 @@
-neofetch
-
 setopt auto_cd
 setopt COMPLETE_IN_WORD
 
@@ -39,8 +37,18 @@ export NVM_DIR="$HOME/.nvm"
 export EDITOR="/usr/local/bin/nvim"
 
 # see "brew info llvm"
-PATH="/usr/local/opt/llvm/bin:$PATH"
+PATH="/usr/local/Cellar/llvm@11/11.1.0/bin:$PATH"
+PATH="/Users/pacokwon/.dotnet/tools:$PATH"
 export PATH="/Users/pacokwon/.local/bin:$PATH"
+
+# ====== ghcup ======
+[ -f "/Users/pacokwon/.ghcup/env" ] && source "/Users/pacokwon/.ghcup/env" # ghcup-env
+
+# ====== opam ======
+test -r /Users/pacokwon/.opam/opam-init/init.zsh && . /Users/pacokwon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# ====== fzf zsh ======
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g !node_modules"
 export LANG='en_US.UTF-8'
@@ -50,6 +58,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export COLORTERM="truecolor"
 export BAT_THEME="DarkNeon"
 export MANPAGER='nvim +Man!'
+export WIDGETS="$HOME/Library/Application Support/Übersicht/widgets"
 
 
 # ====== aliases ======
@@ -67,44 +76,13 @@ alias zshrc='vim ~/.zshrc'
 alias cdn='cd ~/.config/nvim'
 alias lg='lazygit'
 
-
-# ====== fzf zsh ======
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-function gi() {
-    curl -sLw n https://www.gitignore.io/api/$@ ;
-}
-
-# fd - cd to selected directory
-function fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
-function fo() (
-  IFS=$'\n' out=("$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-)
-
-# cdf - cd into the directory of the selected file
-function cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
+alias dr='dotnet run'
+alias ds='dotnet fsi'
 
 # set title for kitty tabs
 function set-title-precmd() {
-  printf "\e]2;%s\a" "${PWD/#$HOME/~}"
+  title=$(basename $PWD | cut -c 1-8)
+  printf "\e]2;%s\a" "$title"
 }
 
 function set-title-preexec() {
@@ -114,6 +92,3 @@ function set-title-preexec() {
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd set-title-precmd
 add-zsh-hook preexec set-title-preexec
-
-# opam configuration
-test -r /Users/pacokwon/.opam/opam-init/init.zsh && . /Users/pacokwon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
