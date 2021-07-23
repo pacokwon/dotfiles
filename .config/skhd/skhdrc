@@ -19,9 +19,8 @@ ctrl + alt - h : yabai -m window --swap west
 ctrl + alt - j : yabai -m window --swap south
 ctrl + alt - k : yabai -m window --swap north
 ctrl + alt - l : yabai -m window --swap east
-ctrl + alt - h : yabai -m window --swap west
-ctrl + alt - n : yabai -m window --display next; yabai -m display --focus next
-ctrl + alt - p : yabai -m window --display prev; yabai -m display --focus prev
+
+ctrl + alt - m : yabai -m space --mirror y-axis
 
 ctrl + alt + cmd - l : yabai -m window --space next; yabai -m space --focus next;
 ctrl + alt + cmd - h : yabai -m window --space prev; yabai -m space --focus prev;
