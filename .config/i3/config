@@ -69,7 +69,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+d focus mode_toggle
+bindsym $mod+d exec thunar
 
 # focus the parent container
 bindsym $mod+a focus parent
