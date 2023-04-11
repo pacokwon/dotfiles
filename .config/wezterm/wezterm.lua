@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 
 return {
-    font = wezterm.font('ComicMono NF')
-    -- font = wezterm.font('VictorMono NFM')
+    color_scheme = 'tokyonight_night',
+    colors = { cursor_bg = '#E6B450' },
+    font = wezterm.font('JetBrains Mono'),
 }
