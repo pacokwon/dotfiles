@@ -144,10 +144,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# works starting from i3 4.22
 gaps inner 8
 
 # start polybar
 exec_always --no-startup-id killall polybar; polybar
 
+
+# remove default title bars
 default_border pixel 1
 default_floating_border pixel 1
