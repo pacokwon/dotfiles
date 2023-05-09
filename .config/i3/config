@@ -26,9 +26,6 @@ font pango:VictorMono NFM 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec wezterm
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -129,6 +126,11 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# start a terminal
+bindsym $mod+Return exec wezterm
+# bindsym $mod+Shift+Return exec firefox
+bindsym $mod+Shift+Return exec $HOME/.local/bin/launch-firefox $ws2
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -150,6 +152,8 @@ gaps inner 8
 # start polybar
 exec_always --no-startup-id killall polybar; polybar
 
+# set wallpaper
+exec_always --no-startup-id killall set-wallpaper; $HOME/.local/bin/set-wallpaper
 
 # remove default title bars
 default_border pixel 1
