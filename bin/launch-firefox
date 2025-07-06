@@ -1,2 +1,0 @@
-#!/bin/bash
-i3-msg "workspace $1; exec /usr/bin/firefox"
