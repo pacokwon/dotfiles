@@ -15,6 +15,7 @@ setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
 export MANPAGER="nvim +Man!"
+export EDITOR="nvim"
 
 alias vim="nvim"
 alias cat="bat"
