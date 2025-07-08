@@ -38,6 +38,7 @@
         tmux
         aerospace
         sketchybar
+        jankyborders
       ];
 
       homebrew = {
@@ -54,6 +55,7 @@
       };
 
       fonts.packages = [
+        pkgs.nerd-fonts.hack
         pkgs.nerd-fonts.victor-mono
       ];
 
@@ -63,6 +65,10 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
+      services.aerospace.enable = true;
+      services.sketchybar.enable = true;
+      services.jankyborders.enable = true;
+
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.primaryUser = "pacokwon";
@@ -70,13 +76,13 @@
       system.defaults = {
         dock.autohide = true;
         screencapture.location = "~/Pictures/Screenshots";
+        controlcenter.BatteryShowPercentage = true;
       };
 
       system.defaults.NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;
         NSWindowShouldDragOnGesture = true;
-        InitialKeyrepeat = 15;
-        Keyrepeat = 3;
+        _HIHideMenuBar = true;
       };
 
       system.keyboard = {
