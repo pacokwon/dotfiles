@@ -36,12 +36,9 @@
         eza
         lazygit
         tmux
-        aerospace
-        sketchybar
         obsidian
         yt-dlp
         ffmpeg
-        jankyborders
       ];
 
       homebrew = {
@@ -55,6 +52,7 @@
           "messenger"
           "firefox"
           "obs"
+          "amethyst"
         ];
       };
 
@@ -69,9 +67,6 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
-      services.aerospace.enable = true;
-      services.sketchybar.enable = true;
-      services.jankyborders.enable = true;
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
