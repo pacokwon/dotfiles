@@ -25,6 +25,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs; [
+        wezterm
         vim
         neovim
         zsh
@@ -59,6 +60,8 @@
       fonts.packages = [
         pkgs.nerd-fonts.hack
         pkgs.nerd-fonts.victor-mono
+        pkgs.nerd-fonts.symbols-only
+        pkgs.noto-fonts-cjk-sans
       ];
 
       # Necessary for using flakes on this system.
