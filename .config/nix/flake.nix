@@ -40,6 +40,7 @@
         obsidian
         yt-dlp
         ffmpeg
+        skhd
       ];
 
       homebrew = {
@@ -70,6 +71,7 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
+      services.skhd.enable = true;
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
