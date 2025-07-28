@@ -14,6 +14,19 @@ autoload -U compinit && compinit
 setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
+eval "$(direnv hook zsh)"
+
+pathadd() {
+  [[ -d "$1" ]] || return
+
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) PATH="$PATH:$1" ;;
+  esac
+}
+
+pathadd "$HOME/.local/bin"
+
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
 
