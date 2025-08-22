@@ -36,11 +36,27 @@
         fzf
         eza
         lazygit
+        bear
         tmux
         obsidian
         yt-dlp
         ffmpeg
+        qemu
+        gdb
+        zoom-us
         skhd
+        tree
+        deno go rustc cargo opam nodejs_22 yarn-berry_3
+        dprint
+        direnv
+        tokei
+        gnupatch
+        hexyl
+        python314
+        delta
+        raycast
+        vscode
+        zola
       ];
 
       homebrew = {
@@ -52,9 +68,15 @@
         casks = [
           "ghostty"
           "messenger"
+          "whatsapp"
           "firefox"
           "obs"
+          "dolphin"
           "amethyst"
+          "thunderbird"
+          "mgba"
+          "chatgpt"
+          "zulip"
         ];
       };
 
@@ -70,6 +92,7 @@
 
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
+      programs.direnv.enable = true;
 
       services.skhd.enable = true;
 
