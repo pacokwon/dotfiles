@@ -57,6 +57,8 @@
         raycast
         vscode
         zola
+        zoxide
+        markdownlint-cli2
       ];
 
       homebrew = {
