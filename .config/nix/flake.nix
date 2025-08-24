@@ -44,7 +44,6 @@
         qemu
         gdb
         zoom-us
-        skhd
         tree
         deno go rustc cargo opam nodejs_22 yarn-berry_3
         dprint
@@ -95,8 +94,6 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
       programs.direnv.enable = true;
-
-      services.skhd.enable = true;
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
