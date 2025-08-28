@@ -6,6 +6,8 @@ fi
 source $HOME/.antidote/antidote.zsh
 antidote load
 
+set -o emacs
+
 autoload -U promptinit && promptinit
 zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:git:action show yes
