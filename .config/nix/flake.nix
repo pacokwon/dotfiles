@@ -58,6 +58,8 @@
         zola
         zoxide
         markdownlint-cli2
+        zathura
+        rlwrap
       ];
 
       homebrew = {
@@ -85,6 +87,8 @@
         pkgs.nerd-fonts.hack
         pkgs.nerd-fonts.victor-mono
         pkgs.nerd-fonts.symbols-only
+        pkgs.nerd-fonts.iosevka
+        pkgs.nerd-fonts.iosevka-term
         pkgs.noto-fonts-cjk-sans
       ];
 
