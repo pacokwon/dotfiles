@@ -39,6 +39,7 @@
         bear
         tmux
         obsidian
+        slack
         yt-dlp
         ffmpeg
         qemu
@@ -67,6 +68,7 @@
         brews = [
           "antidote"
           "tpm"
+          "mas"
         ];
         casks = [
           "ghostty"
@@ -81,7 +83,11 @@
           "chatgpt"
           "zulip"
         ];
+        masApps = {
+          KakaoTalk = 869223134;
+        };
       };
+
 
       fonts.packages = [
         pkgs.nerd-fonts.hack
@@ -94,6 +100,7 @@
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
+      nix.enable = false;
 
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
@@ -127,12 +134,14 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
       nixpkgs.config = { allowUnfree = true; };
+
+      security.pam.services.sudo_local.touchIdAuth = true;
     };
   in
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Haechans-MacBook-Pro
-    darwinConfigurations."macbookpro" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."Haechans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
         mac-app-util.darwinModules.default
