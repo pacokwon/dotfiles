@@ -25,6 +25,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs; [
+        git
         wezterm
         vim
         neovim
@@ -55,7 +56,6 @@
         python314
         delta
         raycast
-        vscode
         zola
         zoxide
         markdownlint-cli2
@@ -82,9 +82,12 @@
           "mgba"
           "chatgpt"
           "zulip"
+          "scroll-reverser"
         ];
         masApps = {
           KakaoTalk = 869223134;
+          Hangul = 416746898;
+          Xcode = 497799835;
         };
       };
 
