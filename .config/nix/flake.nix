@@ -24,44 +24,6 @@
     configuration = { pkgs, config, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages = with pkgs; [
-        git
-        wezterm
-        vim
-        neovim
-        zsh
-        stow
-        bat
-        ripgrep
-        fd
-        fzf
-        eza
-        lazygit
-        bear
-        tmux
-        obsidian
-        slack
-        yt-dlp
-        ffmpeg
-        qemu
-        gdb
-        zoom-us
-        tree
-        deno go rustc cargo opam nodejs_22 yarn-berry_3
-        dprint
-        direnv
-        tokei
-        gnupatch
-        hexyl
-        python314
-        delta
-        raycast
-        zola
-        zoxide
-        markdownlint-cli2
-        zathura
-        rlwrap
-      ];
 
       homebrew = {
         enable = true;
@@ -75,6 +37,7 @@
           "messenger"
           "whatsapp"
           "firefox"
+          "ungoogled-chromium"
           "obs"
           "dolphin"
           "amethyst"
@@ -88,6 +51,7 @@
           KakaoTalk = 869223134;
           Hangul = 416746898;
           Xcode = 497799835;
+          Goodnotes = 1444383602;
         };
       };
 
@@ -115,7 +79,7 @@
 
       system.defaults = {
         dock.autohide = true;
-        screencapture.location = "~/Pictures/Screenshots";
+        screencapture.location = "/Users/pacokwon/Pictures/Screenshots";
         controlcenter.BatteryShowPercentage = true;
       };
 
@@ -147,6 +111,9 @@
     darwinConfigurations."Haechans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
+        ./modules/cli.nix
+        ./modules/apps.nix
+        ./modules/lang.nix
         mac-app-util.darwinModules.default
         nix-homebrew.darwinModules.nix-homebrew
         {

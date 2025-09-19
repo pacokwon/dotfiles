@@ -1,0 +1,33 @@
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [ 
+    git
+    vim
+    neovim
+    zsh
+    stow
+    bat
+    ripgrep
+    fd
+    fzf
+    eza
+    lazygit
+    bear
+    tmux
+    yt-dlp
+    ffmpeg
+    qemu
+    gdb
+    tree
+    direnv
+    tokei
+    gnupatch
+    hexyl
+    delta
+    zoxide
+    rlwrap
+    docker
+    colima
+    zola
+  ];
+}
