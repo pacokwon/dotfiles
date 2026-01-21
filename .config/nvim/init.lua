@@ -169,12 +169,24 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  'rightson/vim-p4-syntax',
 
-  -- Oil File Explorer
   'tpope/vim-surround',
+  'tpope/vim-repeat',
+  -- Oil File Explorer
   {
     'stevearc/oil.nvim',
     opts = {},
+    keys = {
+      {
+        '<leader>fo',
+        function()
+          require('oil').open_float()
+        end,
+        silent = true,
+      },
+    },
+    lazy = false,
   },
 
   {
@@ -191,6 +203,7 @@ require('lazy').setup({
       { '<leader>go', '<cmd>tab Git<CR>', silent = true },
       { '<leader>gp', '<cmd>Git push<CR>', silent = true },
     },
+    lazy = false,
   },
 
   -- NOTE: Plugins can also be added by using a table,
@@ -211,6 +224,23 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+
+  'sindrets/diffview.nvim',
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy',
+    priority = 1000,
+    config = function()
+      require('tiny-inline-diagnostic').setup {
+        options = {
+          multilines = {
+            enabled = true,
+          },
+        },
+      }
+      vim.diagnostic.config { virtual_text = false } -- Disable Neovim's default virtual text diagnostics
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -638,7 +668,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        'gff',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -652,7 +682,13 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {
+          c = true,
+          css = true,
+          ocaml = true,
+          ocamllex = true,
+          menhir = true,
+        }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -670,7 +706,9 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        javascript = { 'deno_fmt' },
+        -- javascript = { 'deno_fmt' },
+        cpp = { 'clang-format' },
+        typescript = { 'biome' },
       },
     },
   },
@@ -752,14 +790,16 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'buffer', 'path', 'snippets', 'lazydev' },
         providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          lazydev = {
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
+          },
         },
       },
 
       snippets = { preset = 'luasnip' },
-
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
       -- which automatically downloads a prebuilt binary when enabled.
       --
@@ -774,34 +814,16 @@ require('lazy').setup({
         completion = { menu = { auto_show = true } },
       },
     },
-  },
+    config = function(_, opts)
+      require('blink.cmp').setup(opts)
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-
-      -- vim.cmd.colorscheme 'tokyonight-night'
-    end,
-  },
-  {
-    'projekt0n/github-nvim-theme',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      vim.cmd.colorscheme 'github_dark_default'
-      vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1e1f24' })
+      vim.keymap.set('i', '<Esc>', function()
+        local ls = require 'luasnip'
+        if ls.in_snippet() then
+          ls.unlink_current()
+        end
+        return '<Esc>'
+      end, { expr = true, desc = 'Exit snippet on Esc' })
     end,
   },
 
@@ -850,12 +872,15 @@ require('lazy').setup({
         'luadoc',
         'markdown',
         'markdown_inline',
+        'menhir',
         'ocaml',
+        'ocamllex',
         'query',
         'rust',
         'typescript',
         'vim',
         'vimdoc',
+        'spectec',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -875,7 +900,14 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-
+  'nvim-treesitter/nvim-treesitter-context',
+  {
+    'pacokwon/plink.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>pl', require('plink').ncopy)
+      vim.keymap.set('v', '<leader>pl', require('plink').vcopy)
+    end,
+  },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
