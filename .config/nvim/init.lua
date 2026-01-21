@@ -295,19 +295,21 @@ require('lazy').setup({
         files = {
           cwd_prompt = false,
         },
-        fzf_opts = {
-          ['--layout'] = 'reverse-list',
+        keymap = {
+          fzf = {
+            ['ctrl-q'] = 'select-all+accept',
+          },
         },
       }
+      fzf_lua.register_ui_select()
 
-      vim.keymap.set('n', '<leader>sf', function()
-        fzf_lua.files { no_ignore = true }
-      end, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sf', fzf_lua.files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sg', fzf_lua.git_files, { desc = '[S]earch Files Respecting .[G]itignore' })
       vim.keymap.set('n', '<leader>st', fzf_lua.live_grep_native, { desc = '[S]earch by [T]ext' })
       vim.keymap.set('n', '<leader>sd', fzf_lua.diagnostics_document, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sw', fzf_lua.diagnostics_workspace, { desc = '[S]earch [W]orkspace Diagnostics' })
       vim.keymap.set('n', '<leader>sr', fzf_lua.lsp_references, { desc = '[S]earch [R]eferences' })
+      vim.keymap.set('n', '<leader><leader>', fzf_lua.buffers, { desc = '[S]earch [R]eferences' })
     end,
   },
 
@@ -394,7 +396,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('gra', require('fzf-lua').lsp_code_actions, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
           map('grr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
@@ -425,6 +427,20 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('fzf-lua').lsp_typedefs, '[G]oto [T]ype Definition')
 
+          for _, client in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
+            if client.name == 'biome' then
+              map('gbf', function()
+                local params = vim.lsp.util.make_range_params(0, 'utf-8')
+                ---@diagnostic disable-next-line: inject-field
+                params.context = { only = { 'source.fixAll.biome' } }
+                vim.lsp.buf.code_action {
+                  context = params.context,
+                  apply = false, -- Neovim 0.10+: auto-apply first/only action
+                }
+              end, '[B]iome [F]ixAll')
+            end
+          end
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
@@ -434,6 +450,7 @@ require('lazy').setup({
             if vim.fn.has 'nvim-0.11' == 1 then
               return client:supports_method(method, bufnr)
             else
+              ---@diagnostic disable-next-line: param-type-mismatch
               return client.supports_method(method, { bufnr = bufnr })
             end
           end
@@ -558,9 +575,24 @@ require('lazy').setup({
           },
           pyright = {},
           ruff = {},
+          denols = {
+            root_markers = { 'deno.json', 'deno.jsonc' },
+          },
         },
         others = {
           ocamllsp = {},
+          biome = {},
+          vtsls = {
+            cmd = { 'npx', 'vtsls', '--stdio' },
+            root_dir = function(fname)
+              local util = require 'lspconfig.util'
+              if util.root_pattern('deno.json', 'deno.jsonc')(fname) then
+                return nil
+              end
+
+              return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')(fname)
+            end,
+          },
         },
       }
 
