@@ -27,10 +27,18 @@
 
       homebrew = {
         enable = true;
+        onActivation = {
+          upgrade = true;
+          cleanup = "uninstall";
+        };
         brews = [
           "antidote"
           "tpm"
           "mas"
+          "gmp"
+          "pkgconf"
+          "watch"
+          "watchexec"
         ];
         casks = [
           "ghostty"
@@ -38,14 +46,22 @@
           "whatsapp"
           "firefox"
           "ungoogled-chromium"
+          "google-chrome"
           "obs"
           "dolphin"
           "amethyst"
           "thunderbird"
-          "mgba"
+          "mgba-app"
           "chatgpt"
           "zulip"
           "scroll-reverser"
+          "font-bree-serif"
+          "input-source-pro"
+          "protonvpn"
+          "signal"
+          "steam"
+          "karabiner-elements"
+          "balenaetcher"
         ];
         masApps = {
           KakaoTalk = 869223134;
@@ -56,13 +72,14 @@
       };
 
 
-      fonts.packages = [
-        pkgs.nerd-fonts.hack
-        pkgs.nerd-fonts.victor-mono
-        pkgs.nerd-fonts.symbols-only
-        pkgs.nerd-fonts.iosevka
-        pkgs.nerd-fonts.iosevka-term
-        pkgs.noto-fonts-cjk-sans
+      fonts.packages = with pkgs; [
+        nerd-fonts.hack
+        nerd-fonts.victor-mono
+        nerd-fonts.symbols-only
+        nerd-fonts.iosevka
+        nerd-fonts.iosevka-term
+        noto-fonts-cjk-sans
+        atkinson-hyperlegible
       ];
 
       # Necessary for using flakes on this system.
@@ -100,7 +117,10 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
-      nixpkgs.config = { allowUnfree = true; };
+      nixpkgs.config = {
+        allowUnfree = true;
+        allowBroken = true;
+      };
 
       security.pam.services.sudo_local.touchIdAuth = true;
     };
