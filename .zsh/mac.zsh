@@ -43,8 +43,8 @@ setopt hist_ignore_space
 
 alias vim="nvim"
 alias cat="bat"
-alias ls='eza --icons --color always'
-alias ll='eza --icons --color always -l'
+alias ls='eza --icons --color auto'
+alias ll='eza --icons --color auto -l'
 alias less='less -RFX' # display color on less
 
 # BEGIN opam configuration
