@@ -10,3 +10,8 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 
 quit-after-last-window-closed = true
+
+window-decoration = none
+font-feature = -calt, -liga, -dlig
+
+macos-option-as-alt = left
