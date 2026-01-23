@@ -31,6 +31,16 @@ export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
 export DELTA_FEATURES="+side-by-side line-numbers"
 
+# both variables need to be set to change history size
+export HISTSIZE=5000
+export SAVEHIST=$HISTSIZE
+
+# ignore duplicate entries like ls -l
+setopt hist_ignore_all_dups
+
+# prevent entries starting with a space from being recorded
+setopt hist_ignore_space
+
 alias vim="nvim"
 alias cat="bat"
 alias ls='eza --icons --color always'
