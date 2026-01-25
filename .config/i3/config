@@ -52,7 +52,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec wezterm
+bindsym $mod+Return exec ghostty
 
 # open firefox
 bindsym $mod+Shift+f exec firefox
@@ -145,7 +145,7 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-assign [class="org.wezfurlong.wezterm"] $ws1
+assign [class="ghostty"] $ws1
 assign [class="firefox"] $ws2
 
 # reload the configuration file
@@ -186,7 +186,7 @@ bindsym $mod+r mode "resize"
 gaps inner 8
 
 # start polybar
-exec_always --no-startup-id "$HOME/.config/polybar/launch.sh --forest"
+exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
 
 # remove default title bars
 default_border pixel 1
