@@ -35,6 +35,7 @@ pathadd "$HOME/.local/bin"
 
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
 export DELTA_FEATURES="+side-by-side line-numbers"
 
 alias vim="nvim"
