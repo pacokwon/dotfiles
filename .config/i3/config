@@ -61,7 +61,7 @@ bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+q kill
 
 # File Manager
-bindsym $mod+d exec pcmanfm
+bindsym $mod+d exec thunar
 
 # https://github.com/adi1090x/rofi
 bindsym $mod+space exec --no-startup-id "$HOME/.config/rofi/launcher/launcher.sh"
@@ -187,6 +187,9 @@ gaps inner 8
 
 # start polybar
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
+
+exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id feh --bg-fill "$HOME/wallpapers/nix-l-nord-aurora.png"
 
 # remove default title bars
 default_border pixel 1
