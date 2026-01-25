@@ -98,6 +98,29 @@ in
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "ko_KR.UTF-8/UTF-8"
+  ];
+
+  # Optionally
+  i18n.extraLocaleSettings = {
+    # LC_ALL = "en_US.UTF-8"; # This overrides all other LC_* settings.
+    LANGUAGE = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+    LC_COLLATE = "en_US.UTF-8";
+  };
+
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -106,18 +129,6 @@ in
       fcitx5-gtk
       qt6Packages.fcitx5-configtool
     ];
-  };
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ko_KR.UTF-8";
-    LC_IDENTIFICATION = "ko_KR.UTF-8";
-    LC_MEASUREMENT = "ko_KR.UTF-8";
-    LC_MONETARY = "ko_KR.UTF-8";
-    LC_NAME = "ko_KR.UTF-8";
-    LC_NUMERIC = "ko_KR.UTF-8";
-    LC_PAPER = "ko_KR.UTF-8";
-    LC_TELEPHONE = "ko_KR.UTF-8";
-    LC_TIME = "ko_KR.UTF-8";
   };
 
   # Enable the GNOME Desktop Environment.
@@ -208,7 +219,7 @@ in
     nerd-fonts.iosevka
     noto-fonts-cjk-sans
     nanum-gothic-coding
-    icomoon-feather
+    material-design-icons
   ];
 
   fonts.fontconfig.defaultFonts = {
