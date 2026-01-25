@@ -56,7 +56,7 @@ in
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
@@ -140,7 +140,30 @@ in
     enable = true;
     windowManager.i3.enable = true;
     xkb.options = "ctrl:nocaps";
+    displayManager.lightdm = {
+      enable = true;
+    };
+    displayManager.lightdm.greeters.gtk.enable = false;
   };
+
+  services.xserver.displayManager.lightdm.greeters.slick = {
+    enable = true;
+    theme = {
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
+    };
+    cursorTheme = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+    };
+    extraConfig = ''
+      background=${./wallpapers/nix-l-nord-aurora.png}
+      draw-user-backgrounds=false
+      enable-hidpi=auto
+    '';
+  };
+  # fix some bug in lightdm
+  programs.dconf.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -196,7 +219,7 @@ in
     fzf
     ffmpeg
     obsidian
-    pcmanfm
+    xfce.thunar
     rofi
     stow
     direnv
@@ -209,6 +232,9 @@ in
     pciutils
     lshw
     xclip
+    signal-desktop
+    feh
+    bibata-cursors
   ];
 
   fonts.packages = with pkgs; [
@@ -216,6 +242,7 @@ in
     nerd-fonts.hack
     nerd-fonts.victor-mono
     nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
     nerd-fonts.iosevka
     noto-fonts-cjk-sans
     nanum-gothic-coding
@@ -237,5 +264,12 @@ in
     ];
   };
 
+  environment.variables = {
+    XCURSOR_THEME = "Bibata-Modern-Ice";
+    XCURSOR_SIZE = "36";
+  };
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }
+
+# vim: set shiftwidth=2 tabstop=2 expandtab:
