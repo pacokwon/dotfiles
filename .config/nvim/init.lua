@@ -126,6 +126,57 @@ vim.keymap.set('v', '<C-k>', '10k', { desc = 'Move 10 lines up' })
 vim.keymap.set('n', '<C-N>', '<cmd>bnext<CR>', { desc = 'Goto Next Buffer' })
 vim.keymap.set('n', '<C-P>', '<cmd>bprevious<CR>', { desc = 'Goto Previous Buffer' })
 
+
+vim.api.nvim_create_user_command('TOhtmlSelection', function()
+  local function inline_with_juice(in_path)
+    local out_path = vim.fn.tempname() .. '.inlined.html'
+    local cmd = { 'npx', '--yes', 'juice', '--extra-css', '* { font-family: Roboto Mono, monospace; font-weight: 500 }', in_path, out_path }
+    local res = vim.system(cmd, { text = true }):wait()
+
+    if res.code ~= 0 then
+      vim.notify('juice failed:\n' .. (res.stderr or ''), vim.log.levels.ERROR)
+      return nil
+    end
+
+    return out_path
+  end
+
+  -- Get visual selection line range from marks '< and '>
+  local s = vim.fn.getpos "'<" -- {bufnum, lnum, col, off}
+  local e = vim.fn.getpos "'>"
+
+  local start_line, end_line = s[2], e[2]
+  if start_line == 0 or end_line == 0 then
+    vim.notify('No visual selection found', vim.log.levels.WARN)
+    return
+  end
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  -- Optional: disable indent guides so virtual text doesn't get captured
+  pcall(vim.cmd, 'IBLDisable')
+
+  local winid = vim.api.nvim_get_current_win()
+  local lines = require('tohtml').tohtml(winid, {
+    range = { start_line, end_line }, -- 1-based inclusive line range
+  })
+
+  pcall(vim.cmd, 'IBLEnable')
+
+  local tmp_in = vim.fn.tempname() .. '.html'
+  vim.fn.writefile(lines, tmp_in)
+
+  local tmp_out = inline_with_juice(tmp_in)
+  if not tmp_out then
+    return
+  end
+
+  vim.cmd('silent !open ' .. vim.fn.fnameescape(tmp_out))
+end, { range = true })
+
+vim.keymap.set('v', '<leader>H', ':TOhtmlSelection<CR>', { silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
