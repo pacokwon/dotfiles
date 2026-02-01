@@ -59,7 +59,6 @@
           "input-source-pro"
           "protonvpn"
           "signal"
-          "steam"
           "karabiner-elements"
           "balenaetcher"
         ];
@@ -79,6 +78,8 @@
         nerd-fonts.iosevka
         nerd-fonts.iosevka-term
         noto-fonts-cjk-sans
+        nerd-fonts.roboto-mono
+        roboto-mono
         atkinson-hyperlegible
       ];
 

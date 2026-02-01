@@ -29,5 +29,8 @@
     docker
     colima
     zola
+    just
+    ollama
+    entr
   ];
 }
