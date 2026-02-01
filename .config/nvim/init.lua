@@ -665,13 +665,13 @@ require('lazy').setup({
           biome = {},
           vtsls = {
             cmd = { 'npx', 'vtsls', '--stdio' },
-            root_dir = function(fname)
-              local util = require 'lspconfig.util'
-              if util.root_pattern('deno.json', 'deno.jsonc')(fname) then
-                return nil
-              end
+            root_dir = function(_, callback)
+              local deno_dir = vim.fs.root(0, { 'deno.json', 'deno.jsonc' })
+              local root_dir = vim.fs.root(0, { 'tsconfig.json', 'jsconfig.json', 'package.json' })
 
-              return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')(fname)
+              if deno_dir == nil then
+                callback(root_dir)
+              end
             end,
           },
         },
@@ -739,6 +739,7 @@ require('lazy').setup({
           ocaml = true,
           ocamllex = true,
           menhir = true,
+          html = true,
         }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
