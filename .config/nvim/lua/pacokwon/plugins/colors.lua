@@ -1,9 +1,9 @@
-return {
+local colorschemes = {
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
     'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    name = 'tokyonight',
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
@@ -15,7 +15,7 @@ return {
   },
   {
     'projekt0n/github-nvim-theme',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    name = 'github-nvim-theme',
     config = function()
       -- vim.cmd.colorscheme 'github_dark_default'
       vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#2d2f38' })
@@ -25,7 +25,7 @@ return {
   },
   {
     'ellisonleao/gruvbox.nvim',
-    priority = 1000,
+    name = 'gruvbox',
     config = function()
       require('gruvbox').setup {
         contrast = 'hard',
@@ -53,16 +53,48 @@ return {
         },
       }
 
-      vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'gruvbox'
     end,
   },
   {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+  },
+  {
     'nyoom-engineering/oxocarbon.nvim',
-    priority = 1000,
+    name = 'oxocarbon',
     config = function()
-      -- vim.cmd.colorscheme 'oxocarbon'
-      -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#202020' })
-      -- vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+      vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#202020' })
+      vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+    end,
+  },
+  {
+    'navarasu/onedark.nvim',
+    name = 'onedark',
+    config = function()
+      require('onedark').setup {
+        style = 'darker',
+      }
+      require('onedark').load()
     end,
   },
 }
+
+local plugin_name = 'catppuccin'
+local variant = 'catppuccin-mocha'
+if variant ~= nil then
+  COLORSCHEME = variant
+else
+  COLORSCHEME = plugin_name
+end
+
+for _, entry in ipairs(colorschemes) do
+  if entry.name == plugin_name then
+    entry.priority = 1000
+  else
+    entry.priority = nil
+    entry.config = nil
+  end
+end
+
+return colorschemes
