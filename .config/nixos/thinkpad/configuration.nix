@@ -51,8 +51,15 @@
   };
 
   # Enable the X11 windowing system.
+  services.libinput = {
+    enable = true;
+    mouse.naturalScrolling = true;
+    touchpad.naturalScrolling = true;
+  };
+
   services.xserver = {
     enable = true;
+    exportConfiguration = true;
     windowManager.i3.enable = true;
     xkb.options = "ctrl:nocaps";
     displayManager.lightdm = {
@@ -140,7 +147,7 @@
     fzf
     ffmpeg
     obsidian
-    xfce.thunar
+    thunar
     rofi
     stow
     direnv
