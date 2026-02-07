@@ -84,6 +84,10 @@
       enable-hidpi=auto
     '';
   };
+
+  # Whether to enable handling of hotplug and sleep events by autorandr.
+  services.autorandr.enable = true;
+
   # fix some bug in lightdm
   programs.dconf.enable = true;
 
@@ -164,6 +168,7 @@
     feh
     bibata-cursors
     autorandr
+    protonvpn-gui
   ];
 
   fonts.packages = with pkgs; [
