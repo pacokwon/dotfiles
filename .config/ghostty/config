@@ -2,8 +2,8 @@ font-family = "Iosevka Nerd Font Mono"
 font-family = "Noto Sans CJK KR"
 font-family = "Symbols Nerd Font Mono"
 
-font-size = 20
-theme = "Github-Dark-Default"
+font-size = 15
+theme = "GitHub Dark Default"
 
 cursor-style = block
 cursor-style-blink = false

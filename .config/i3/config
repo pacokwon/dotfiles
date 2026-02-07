@@ -189,7 +189,7 @@ gaps inner 8
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
 
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
-exec_always --no-startup-id feh --bg-fill "$HOME/wallpapers/nix-l-nord-aurora.png"
+exec_always --no-startup-id feh --bg-fill "$HOME/.config/nixos/thinkpad/wallpapers/nix-d-nord-purple.jpg"
 
 # remove default title bars
 default_border pixel 1
