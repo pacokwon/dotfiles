@@ -1,16 +1,18 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ config, pkgs, silentSDDM, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      silentSDDM.nixosModules.default
     ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   boot.loader.efi.canTouchEfiVariables = true;
+
+  hardware.graphics = {
+    enable = true;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -50,23 +52,18 @@
     ];
   };
 
-  # Enable the X11 windowing system.
   services.libinput = {
     enable = true;
     touchpad.naturalScrolling = true;
   };
 
-  services.xserver = {
+  programs.silentSDDM = {
     enable = true;
-    exportConfiguration = true;
-    windowManager.i3.enable = true;
-    xkb.options = "ctrl:nocaps";
-    displayManager.lightdm = {
-      enable = true;
-    };
-    displayManager.lightdm.greeters.gtk.enable = false;
+    theme = "default";
+    # settings = { ... }; see example in module
   };
 
+  services.xserver.displayManager.lightdm.greeters.gtk.enable = false;
   services.xserver.displayManager.lightdm.greeters.slick = {
     enable = true;
     theme = {
@@ -87,8 +84,30 @@
   # Whether to enable handling of hotplug and sleep events by autorandr.
   services.autorandr.enable = true;
 
-  # fix some bug in lightdm
   programs.dconf.enable = true;
+
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = {
+        main = {
+          muhenkan = "layer(nav)";
+          henkan = "space";
+          katakanahiragana = "space";
+          ro = "rightshift";
+          yen = "backspace";
+          capslock = "leftcontrol";
+        };
+        nav = {
+          h = "left";
+          j = "down";
+          k = "up";
+          l = "right";
+        };
+      };
+    };
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -101,25 +120,15 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pacokwon = {
     isNormalUser = true;
     description = "pacokwon";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" "input" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 
@@ -143,6 +152,7 @@
     wget
     neovim
     wezterm
+    alacritty
     ghostty
     bat
     ripgrep
@@ -151,23 +161,26 @@
     ffmpeg
     obsidian
     thunar
-    rofi
     stow
     direnv
     eza
     zoxide
     python314 gcc15 go rustc cargo opam deno nodejs_22 yarn-berry_3
-    polybar
     killall
     unzip
     pciutils
     lshw
-    xclip
     signal-desktop
     feh
     bibata-cursors
-    autorandr
     protonvpn-gui
+    lua-language-server stylua
+    fuzzel
+    wbg
+    waybar
+    swaylock
+    brightnessctl
+    playerctl
   ];
 
   fonts.packages = with pkgs; [
@@ -200,6 +213,11 @@
   environment.variables = {
     XCURSOR_THEME = "Bibata-Modern-Ice";
     XCURSOR_SIZE = "36";
+  };
+
+  environment.sessionVariables = {
+    GDK_SCALE = "1"; 
+    GDK_DPI_SCALE = "0.8"; # This mimics xft.dpi behavior for text
   };
 
   system.stateVersion = "25.11"; # Did you read the comment?
