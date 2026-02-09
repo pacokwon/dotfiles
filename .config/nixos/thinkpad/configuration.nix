@@ -57,32 +57,15 @@
     touchpad.naturalScrolling = true;
   };
 
+  systemd.tmpfiles.rules = [
+    "L /var/lib/AccountsService/icons/pacokwon - - - - ${./avatar.JPEG}"
+  ];
+
   programs.silentSDDM = {
     enable = true;
     theme = "default";
     # settings = { ... }; see example in module
   };
-
-  services.xserver.displayManager.lightdm.greeters.gtk.enable = false;
-  services.xserver.displayManager.lightdm.greeters.slick = {
-    enable = true;
-    theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
-    };
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
-    };
-    extraConfig = ''
-      background=${./wallpapers/nix-d-nord-purple.jpg}
-      draw-user-backgrounds=false
-      enable-hidpi=auto
-    '';
-  };
-
-  # Whether to enable handling of hotplug and sleep events by autorandr.
-  services.autorandr.enable = true;
 
   programs.dconf.enable = true;
 
@@ -217,7 +200,7 @@
 
   environment.sessionVariables = {
     GDK_SCALE = "1"; 
-    GDK_DPI_SCALE = "0.8"; # This mimics xft.dpi behavior for text
+    GDK_DPI_SCALE = "1"; # This mimics xft.dpi behavior for text
   };
 
   system.stateVersion = "25.11"; # Did you read the comment?
