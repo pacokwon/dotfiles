@@ -270,7 +270,6 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-sh-at-startup "waybar"
 spawn-at-startup "wbg" "-s" "/home/pacokwon/wallpapers/nix-d-nord-purple.jpg"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -623,7 +622,7 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { quit; }
+    Mod+Shift+E { spawn "sh" "-c" "$HOME/.config/niri/fuzzel-powermenu.sh"; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
