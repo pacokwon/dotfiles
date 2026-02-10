@@ -9,6 +9,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
 
   hardware.graphics = {
     enable = true;
@@ -58,7 +59,7 @@
   };
 
   systemd.tmpfiles.rules = [
-    "L /var/lib/AccountsService/icons/pacokwon - - - - ${./avatar.JPEG}"
+    "L /var/lib/AccountsService/icons/pacokwon - - - - ${./avatar.jpeg}"
   ];
 
   programs.silentSDDM = {
@@ -123,6 +124,7 @@
       catppuccin
     ];
   };
+  programs.waybar.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -160,10 +162,11 @@
     lua-language-server stylua
     fuzzel
     wbg
-    waybar
     swaylock
     brightnessctl
     playerctl
+    swayosd
+    wlogout
   ];
 
   fonts.packages = with pkgs; [
