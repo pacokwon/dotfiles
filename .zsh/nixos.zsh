@@ -8,6 +8,12 @@ antidote load
 
 set -o emacs
 
+# Bind Alt + Left Arrow to go back one word
+bindkey '^[[1;3D' backward-word
+
+# Bind Alt + Right Arrow to go forward one word
+bindkey '^[[1;3C' forward-word
+
 autoload -U promptinit && promptinit
 zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:git:action show yes
