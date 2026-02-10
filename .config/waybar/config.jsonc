@@ -34,8 +34,8 @@
     "clock": {
         "timezone": "Asia/Seoul",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "  {:%d/%m/%Y}",
-        "format": "  {:%H:%M}"
+        "format": "  {:%Y/%m/%d    %H:%M}",
+        "format-alt": "  {:%H:%M}"
     },
     "backlight": {
         "device": "amdgpu_bl1",
