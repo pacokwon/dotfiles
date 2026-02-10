@@ -499,6 +499,9 @@ binds {
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
+    Mod+B { spawn "pkill" "-SIGUSR1" "waybar"; }
+    Mod+Shift+B { spawn "pkill" "-SIGUSR2" "waybar"; }
+
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into
     // discrete intervals.
@@ -622,7 +625,7 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { spawn "sh" "-c" "$HOME/.config/niri/fuzzel-powermenu.sh"; }
+    Mod+Shift+E { spawn-sh "$HOME/.config/niri/fuzzel-powermenu.sh"; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
