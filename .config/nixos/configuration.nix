@@ -1,18 +1,17 @@
-{ lib, config, pkgs, ... }:
-let
-  sources = import ./lon.nix;
-  lanzaboote = import sources.lanzaboote {
-    inherit pkgs;
-  };
-in
-{
+{ config, lib, pkgs, silentSDDM, ... }: {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      lanzaboote.nixosModules.lanzaboote
+      silentSDDM.nixosModules.default
     ];
 
-  # Bootloader.
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -63,7 +62,6 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-
   # Use the systemd-boot EFI boot loader.
   boot = {
     # Enable "Silent boot"
@@ -99,26 +97,16 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
-    "ko_KR.UTF-8/UTF-8"
-  ];
-
-  # Optionally
   i18n.extraLocaleSettings = {
-    # LC_ALL = "en_US.UTF-8"; # This overrides all other LC_* settings.
-    LANGUAGE = "en_US.UTF-8";
-    LC_CTYPE = "en_US.UTF-8";
     LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
     LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MESSAGES = "en_US.UTF-8";
     LC_MONETARY = "en_US.UTF-8";
     LC_NAME = "en_US.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-    LC_COLLATE = "en_US.UTF-8";
   };
 
   i18n.inputMethod = {
@@ -131,42 +119,28 @@ in
     ];
   };
 
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
+  systemd.tmpfiles.rules = [
+    "L /var/lib/AccountsService/icons/pacokwon - - - - ${./avatar.jpeg}"
+  ];
 
-  # Enable the X11 windowing system.
-  services.xserver = {
+  programs.silentSDDM = {
     enable = true;
-    windowManager.i3.enable = true;
-    xkb.options = "ctrl:nocaps";
-    displayManager.lightdm = {
-      enable = true;
-    };
-    displayManager.lightdm.greeters.gtk.enable = false;
+    theme = "default";
   };
 
-  services.xserver.displayManager.lightdm.greeters.slick = {
-    enable = true;
-    theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
-    };
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
-    };
-    extraConfig = ''
-      background=${./wallpapers/nix-l-nord-aurora.png}
-      draw-user-backgrounds=false
-      enable-hidpi=auto
-    '';
-  };
-  # fix some bug in lightdm
   programs.dconf.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = {
+        main = {
+          capslock = "leftcontrol";
+        };
+      };
+    };
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -178,20 +152,19 @@ in
     pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pacokwon = {
     isNormalUser = true;
     description = "pacokwon";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" "input" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
-    #  thunderbird
-    ];
   };
 
+  programs.niri.enable = true;
+  programs.niri.package = pkgs.niri;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sessionPackages = [ pkgs.niri ];
   programs.firefox.enable = true;
   programs.zsh.enable = true;
   programs.tmux = {
@@ -200,9 +173,7 @@ in
       catppuccin
     ];
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  programs.waybar.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -212,6 +183,7 @@ in
     wget
     neovim
     wezterm
+    alacritty
     ghostty
     bat
     ripgrep
@@ -219,22 +191,28 @@ in
     fzf
     ffmpeg
     obsidian
-    xfce.thunar
-    rofi
+    thunar
     stow
     direnv
     eza
     zoxide
     python314 gcc15 go rustc cargo opam deno nodejs_22 yarn-berry_3
-    polybar
     killall
     unzip
     pciutils
     lshw
-    xclip
     signal-desktop
     feh
     bibata-cursors
+    protonvpn-gui
+    lua-language-server stylua
+    fuzzel
+    wbg
+    swaylock
+    brightnessctl
+    playerctl
+    swayosd
+    wlogout
   ];
 
   fonts.packages = with pkgs; [
@@ -269,7 +247,10 @@ in
     XCURSOR_SIZE = "36";
   };
 
+  environment.sessionVariables = {
+    GDK_SCALE = "1"; 
+    GDK_DPI_SCALE = "1"; # This mimics xft.dpi behavior for text
+  };
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }
-
-# vim: set shiftwidth=2 tabstop=2 expandtab:
