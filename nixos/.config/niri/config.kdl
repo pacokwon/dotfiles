@@ -502,6 +502,9 @@ binds {
     Mod+B { spawn "pkill" "-SIGUSR1" "waybar"; }
     Mod+Shift+B { spawn "pkill" "-SIGUSR2" "waybar"; }
 
+    Mod+D { spawn "thunar"; }
+    Mod+Shift+Backslash { spawn "firefox"; }
+
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into
     // discrete intervals.
