@@ -32,6 +32,7 @@ pathadd() {
 }
 
 pathadd "$HOME/.local/bin"
+pathadd "$HOME/.config/emacs/bin"
 
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"

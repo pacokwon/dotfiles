@@ -12,5 +12,5 @@ return {
 	}),
 	font_size = 12,
 	use_ime = true,
-	window_decorations = "RESIZE",
+	window_decorations = "NONE",
 }

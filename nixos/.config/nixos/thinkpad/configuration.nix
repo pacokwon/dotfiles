@@ -10,6 +10,9 @@
     enable32Bit = true;
   };
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
   services.libinput = {
     enable = true;
     touchpad.naturalScrolling = true;
