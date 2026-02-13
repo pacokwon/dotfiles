@@ -18,6 +18,6 @@ From the project root, run:
 
 ```bash
 $ stow -t ~ common
-$ stow -t ~ mac   # if you're on a mac machine
+$ stow -t ~ macos # if you're on a mac
 $ stow -t ~ nixos # if you're on a nixos machine
 ```
