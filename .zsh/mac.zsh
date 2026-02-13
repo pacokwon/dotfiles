@@ -26,6 +26,8 @@ pathadd() {
 }
 
 pathadd "$HOME/.local/bin"
+pathadd "$HOME/.deno/bin"
+pathadd "$HOME/.config/emacs/bin"
 
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
@@ -46,6 +48,14 @@ alias cat="bat"
 alias ls='eza --icons --color auto'
 alias ll='eza --icons --color auto -l'
 alias less='less -RFX' # display color on less
+
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+
+# I'm using a symbols only nerd font as a fallback,
+# and an unpatched font as primary. the symbols look like
+# it's right next to the entries because it's bigger than other fonts
+# Adjust the spacing with this variable
+export EZA_ICON_SPACING=2
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
