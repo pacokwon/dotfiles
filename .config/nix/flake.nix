@@ -22,9 +22,6 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew, homebrew-core, homebrew-cask, ... }:
   let
     configuration = { pkgs, config, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-
       homebrew = {
         enable = true;
         onActivation = {
@@ -80,6 +77,7 @@
         noto-fonts-cjk-sans
         nerd-fonts.roboto-mono
         roboto-mono
+        iosevka
         atkinson-hyperlegible
       ];
 
@@ -120,7 +118,6 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       nixpkgs.config = {
         allowUnfree = true;
-        allowBroken = true;
       };
 
       security.pam.services.sudo_local.touchIdAuth = true;
@@ -135,6 +132,7 @@
         ./modules/cli.nix
         ./modules/apps.nix
         ./modules/lang.nix
+        ./modules/emacs.nix
         mac-app-util.darwinModules.default
         nix-homebrew.darwinModules.nix-homebrew
         {
