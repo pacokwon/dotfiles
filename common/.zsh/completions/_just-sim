@@ -1,0 +1,10 @@
+#compdef just-sim
+
+_just-sim() {
+  local -a files
+  files=(/Users/pacokwon/workspace/p4-spectec/p4c/testdata/p4_16_samples/*.p4(N:t:r))
+
+  _values 'p4 tests' $files
+}
+
+_just-sim "$@"

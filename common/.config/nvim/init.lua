@@ -126,6 +126,29 @@ vim.keymap.set('v', '<C-k>', '10k', { desc = 'Move 10 lines up' })
 vim.keymap.set('n', '<C-N>', '<cmd>bnext<CR>', { desc = 'Goto Next Buffer' })
 vim.keymap.set('n', '<C-P>', '<cmd>bprevious<CR>', { desc = 'Goto Previous Buffer' })
 
+vim.keymap.set('n', '<leader>r', function()
+  local filename = vim.fn.expand '%:p' -- full path of current file
+  local output = vim.fn.expand '%:p:r' -- file path without extension
+
+  local input = ''
+  local input_prompt = ''
+  local cmd = ''
+  if vim.bo.filetype == 'c' or vim.bo.filetype == 'cpp' then
+    if vim.loop.fs_stat 'input.txt' then
+      input = ' < ' .. 'input.txt'
+      input_prompt = 'echo "input.txt found. Piping to stdin...";'
+    end
+
+    cmd = string.format('g++ -std=c++20 -O2 %s -o %s && %s%s', filename, output, output, input)
+  elseif vim.bo.filetype == 'python' then
+    cmd = string.format('python %s', filename)
+  end
+
+  -- Open a horizontal split terminal and run the command
+  vim.cmd(string.format('vsp | terminal %s %s', input_prompt, cmd))
+  -- Optional: enter insert mode in the terminal automatically
+  vim.cmd 'startinsert'
+end, { noremap = true, silent = true })
 
 vim.api.nvim_create_user_command('TOhtmlSelection', function()
   local function inline_with_juice(in_path)
@@ -205,6 +228,7 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
+-- rtp:append '/Users/pacokwon/.opam/5.1.0/share/ocp-indent/vim'
 
 -- [[ Configure and install plugins ]]
 --
@@ -674,6 +698,7 @@ require('lazy').setup({
               end
             end,
           },
+          nixd = {},
         },
       }
 
@@ -985,6 +1010,32 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'javascript', 'ruby' } },
     },
+    config = function(_, opts)
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.spectec = {
+        install_info = {
+          url = '/Users/pacokwon/workspace/tree-sitter-spectec/',
+          files = { 'src/parser.c' },
+          branch = 'main',
+          generate_requires_npm = false,
+          requires_generate_from_grammar = false,
+        },
+        filetype = 'spectec',
+      }
+
+      local configs = require 'nvim-treesitter.configs'
+      configs.setup(opts)
+
+      vim.filetype.add {
+        extension = {
+          spectec = 'spectec',
+          watsup = 'spectec',
+          mll = 'ocamllex',
+          mly = 'menhir',
+          stf = 'config',
+        },
+      }
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --

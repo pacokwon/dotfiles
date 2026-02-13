@@ -1,0 +1,30 @@
+font-family = "Iosevka"
+font-family = "Noto Sans CJK KR"
+font-family = "Symbols Nerd Font Mono"
+
+font-size = 15
+
+# theme = Oxocarbon
+# cursor-color = #be95ff
+
+# theme = Gruvbox Dark Hard
+# cursor-color = #fabd2f
+
+theme = Catppuccin Mocha
+cursor-color = #A6E3A1
+
+# theme = "Github Dark Default"
+# theme = Gruvbox Dark Hard
+# cursor-color = #fabd2f
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+quit-after-last-window-closed = true
+
+window-decoration = none
+font-feature = -calt, -liga, -dlig
+
+macos-option-as-alt = left
+# vim: ft=config

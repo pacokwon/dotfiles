@@ -1,0 +1,10 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+
+[window]
+decorations = "None"
+
+[font]
+normal = { family = "Iosevka Nerd Font Mono", style = "Regular" }
