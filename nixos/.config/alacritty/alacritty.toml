@@ -7,4 +7,4 @@ import = [
 decorations = "None"
 
 [font]
-normal = { family = "Iosevka Nerd Font Mono", style = "Regular" }
+normal = { family = "Iosevka", style = "Regular" }
