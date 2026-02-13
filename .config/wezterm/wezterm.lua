@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 return {
-	color_scheme = "tokyonight_night",
+	color_scheme = "GitHub Dark",
 	colors = {
 		cursor_bg = "#E6B450",
 	},
