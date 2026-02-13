@@ -13,5 +13,7 @@
     clang-tools
     tree-sitter
     aider-chat
+    rocq-core
+    nixd
   ];
 }
