@@ -11,7 +11,13 @@
   };
 
   boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelParams = [
+    "pcie_aspm.policy=powersupersave"
+    "amd_pmc.enable=1"
+    "mem_sleep_default=deep"
+  ];
   services.xserver.videoDrivers = [ "amdgpu" ];
+  services.emacs.enable = true;
 
   services.libinput = {
     enable = true;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, silentSDDM, ... }: {
+{ lib, pkgs, silentSDDM, ... }: {
   imports =
     [ # Include the results of the hardware scan.
       silentSDDM.nixosModules.default
@@ -89,7 +89,7 @@
   users.users.pacokwon = {
     isNormalUser = true;
     description = "pacokwon";
-    extraGroups = [ "networkmanager" "wheel" "video" "render" "input" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" "video" "render" "input" ];
     shell = pkgs.zsh;
   };
 
@@ -106,6 +106,9 @@
     ];
   };
   programs.waybar.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     git
@@ -126,16 +129,14 @@
     direnv
     eza
     zoxide
-    python314 gcc15 go rustc cargo opam deno nodejs_22 yarn-berry_3
+    python314 opam deno
     killall
     unzip
-    pciutils
-    lshw
     signal-desktop
     feh
     bibata-cursors
     protonvpn-gui
-    lua-language-server stylua
+    lua-language-server stylua nixd
     fuzzel
     wbg
     swaylock
@@ -143,8 +144,15 @@
     playerctl
     wlogout
     zathura
-    rocq-core
     zulip
+    rocq-core
+    rocqPackages.stdlib
+    (pkgs.texliveSmall.withPackages (
+      ps: with ps; [
+          dvisvgm dvipng # for preview and export as html
+          wrapfig amsmath ulem hyperref capt-of
+      ]
+    ))
   ];
 
   fonts.packages = with pkgs; [
@@ -186,6 +194,7 @@
     XCURSOR_THEME = "Bibata-Modern-Ice";
     XCURSOR_SIZE = "36";
     GTK_THEME = "Adwaita:dark";
+    ROCQPATH = "${pkgs.rocqPackages.stdlib}/lib/coq/9.0/user-contrib";
   };
 
   environment.sessionVariables = {
