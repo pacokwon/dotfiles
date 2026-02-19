@@ -145,8 +145,6 @@
     wlogout
     zathura
     zulip
-    rocq-core
-    rocqPackages.stdlib
     (pkgs.texliveSmall.withPackages (
       ps: with ps; [
           dvisvgm dvipng # for preview and export as html
@@ -194,7 +192,6 @@
     XCURSOR_THEME = "Bibata-Modern-Ice";
     XCURSOR_SIZE = "36";
     GTK_THEME = "Adwaita:dark";
-    ROCQPATH = "${pkgs.rocqPackages.stdlib}/lib/coq/9.0/user-contrib";
   };
 
   environment.sessionVariables = {
