@@ -7,6 +7,11 @@ source $HOME/.antidote/antidote.zsh
 antidote load
 
 set -o emacs
+# Bind Alt + Left Arrow to move back one word
+bindkey '^[[1;3D' backward-word
+
+# Bind Alt + Right Arrow to move forward one word
+bindkey '^[[1;3C' forward-word
 
 autoload -U promptinit && promptinit
 zstyle :prompt:pure:git:stash show yes
