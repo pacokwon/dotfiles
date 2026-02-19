@@ -1,4 +1,11 @@
 { pkgs, ... }:
+let
+  tex = (pkgs.texliveSmall.withPackages (
+    ps: with ps; [
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of
+  ]));
+in
 {
   environment.systemPackages = with pkgs; [ 
     deno
@@ -14,6 +21,8 @@
     tree-sitter
     aider-chat
     rocq-core
+    rocqPackages.stdlib
     nixd
+    tex
   ];
 }

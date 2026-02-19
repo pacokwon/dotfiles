@@ -121,6 +121,10 @@
       };
 
       security.pam.services.sudo_local.touchIdAuth = true;
+
+      environment.variables = {
+        ROCQPATH = "${pkgs.rocqPackages.stdlib}/lib/coq/9.0/user-contrib";
+      };
     };
   in
   {

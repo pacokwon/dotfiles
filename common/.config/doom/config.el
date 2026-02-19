@@ -32,11 +32,13 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. Tjis is the default:
-(setq doom-theme 'catppuccin)
+(setq doom-theme 'doom-solarized-dark-high-contrast)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq doom-font (font-spec :family "Iosevka" :size 14)
+      doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font Propo" :size 16)
+      doom-big-font (font-spec :family "Iosevka" :size 20)
+      doom-symbol-font (font-spec :family "Symbols Nerd Font Mono" :size 16))
+
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -48,11 +50,20 @@
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 
-(map! :nv "C-j" (lambda ()
+(setq display-line-numbers-type 'relative)
+
+(setq org-latex-compiler "lualatex")
+(setq org-preview-latex-default-process 'dvisvgm)
+
+(after! org-modern
+  (setq org-modern-star
+        '("●" "○" "◆" "▶" "▸" "▹")))
+
+(map! :n "C-j" (lambda ()
                   (interactive)
                   (forward-line 10)))
 
-(map! :nv "C-k" (lambda ()
+(map! :n "C-k" (lambda ()
                   (interactive)
                   (forward-line -10)))
 
