@@ -106,12 +106,22 @@
     ];
   };
   programs.waybar.enable = true;
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        name  = "pacokwon";
+        email = "haechank@gmail.com";
+      };
+      init.defaultBranch = "main";
+      alias.adog = "log --all --decorate --oneline --graph";
+    };
+  };
   virtualisation.docker = {
     enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    git
     vim
     wget
     neovim
@@ -129,14 +139,15 @@
     direnv
     eza
     zoxide
-    python314 opam deno
+    gcc python314 opam deno nodejs
     killall
     unzip
     signal-desktop
     feh
     bibata-cursors
     protonvpn-gui
-    lua-language-server stylua nixd
+    tree-sitter lua-language-server stylua nixd pyright ruff markdownlint-cli2
+    just
     fuzzel
     wbg
     swaylock
@@ -151,6 +162,7 @@
           wrapfig amsmath ulem hyperref capt-of
       ]
     ))
+    tree
   ];
 
   fonts.packages = with pkgs; [
