@@ -986,14 +986,12 @@ require('lazy').setup({
           url = '/Users/pacokwon/workspace/tree-sitter-spectec/',
           files = { 'src/parser.c' },
           branch = 'main',
+          queries = 'queries',
           generate_requires_npm = false,
           requires_generate_from_grammar = false,
         },
         filetype = 'spectec',
       }
-
-      local configs = require 'nvim-treesitter.configs'
-      configs.setup(opts)
 
       vim.filetype.add {
         extension = {
@@ -1004,6 +1002,8 @@ require('lazy').setup({
           stf = 'config',
         },
       }
+
+      require('nvim-treesitter.configs').setup(opts)
     end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
