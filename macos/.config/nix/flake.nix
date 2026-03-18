@@ -58,11 +58,13 @@
           "signal"
           "karabiner-elements"
           "balenaetcher"
+          "steam"
+          "telegram-desktop"
         ];
         masApps = {
           KakaoTalk = 869223134;
           Hangul = 416746898;
-          Xcode = 497799835;
+          # Xcode = 497799835;
           Goodnotes = 1444383602;
         };
       };
@@ -79,6 +81,8 @@
         roboto-mono
         iosevka
         atkinson-hyperlegible
+        pretendard
+        d2coding
       ];
 
       # Necessary for using flakes on this system.
@@ -86,7 +90,6 @@
       nix.enable = false;
 
       # Enable alternative shell support in nix-darwin.
-      programs.zsh.enable = true;
       programs.direnv.enable = true;
 
       # Set Git commit hash for darwin-version.
@@ -137,6 +140,8 @@
         ./modules/apps.nix
         ./modules/lang.nix
         ./modules/emacs.nix
+        ./modules/tex.nix
+        ./modules/zsh.nix
         mac-app-util.darwinModules.default
         nix-homebrew.darwinModules.nix-homebrew
         {

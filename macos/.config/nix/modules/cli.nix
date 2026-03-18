@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
     git
     vim
+    wget
     neovim
     zsh
     stow
@@ -22,7 +23,6 @@
     direnv
     tokei
     gnupatch
-    hexyl
     delta
     zoxide
     rlwrap
@@ -31,6 +31,7 @@
     zola
     just
     ollama
-    entr
+    hyperfine
+    claude-code
   ];
 }
