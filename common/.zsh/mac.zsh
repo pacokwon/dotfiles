@@ -2,34 +2,6 @@ source $(brew --prefix antidote)/share/antidote/antidote.zsh
 
 antidote load
 
-autoload -Uz vcs_info
-setopt prompt_subst
-
-precmd_functions+=(vcs_info)
-
-# 1. Define the Stash Hook
-+vi-git-stash() {
-    local stashes
-    if [[ -s ${hook_com[base]}/.git/refs/stash ]]; then
-        stashes=$(git rev-list --walk-reflogs --count refs/stash 2>/dev/null)
-        hook_com[misc]+=" %F{cyan}≡${stashes}%f"
-    fi
-}
-zstyle ':vcs_info:git*+set-message:*' hooks git-stash
-
-# 2. Styles
-zstyle ':vcs_info:git:*' enable git
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '+'
-zstyle ':vcs_info:git:*' unstagedstr '*'
-zstyle ':vcs_info:git:*' formats ' %F{yellow}%b%c%u%m%f'
-zstyle ':vcs_info:git:*' actionformats ' %F{yellow}%b|%a%c%u%m%f'
-
-# 3. Prompt
-PS1='
-%F{blue}%~%f${vcs_info_msg_0_}
-%(?.%F{green}.%F{red})❯%f '
-
 autoload -U compinit && compinit
 setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
