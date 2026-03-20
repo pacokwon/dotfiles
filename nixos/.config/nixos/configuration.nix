@@ -140,6 +140,7 @@
     eza
     zoxide
     gcc python314 opam deno nodejs
+    gnumake
     killall
     unzip
     signal-desktop
