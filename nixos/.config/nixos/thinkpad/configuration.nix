@@ -11,6 +11,12 @@
     enable32Bit = true;
   };
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
+
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [
     "pcie_aspm.policy=powersupersave"
