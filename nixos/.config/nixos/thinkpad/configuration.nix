@@ -31,6 +31,14 @@
     touchpad.naturalScrolling = true;
   };
 
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ 
+      "Iosevka" 
+      "Noto Sans Mono CJK KR" 
+      "Symbols Nerd Font" 
+    ];
+  };
+
   services.keyd = {
     enable = true;
     keyboards.default = {
