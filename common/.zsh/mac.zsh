@@ -26,8 +26,9 @@ export EDITOR="nvim"
 export DELTA_FEATURES="+side-by-side line-numbers"
 
 # both variables need to be set to change history size
-export HISTSIZE=5000
+export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
+setopt share_history
 
 # ignore duplicate entries like ls -l
 setopt hist_ignore_all_dups
