@@ -16,5 +16,6 @@
     rocq-core
     rocqPackages.stdlib
     nixd
+    lean4
   ];
 }
