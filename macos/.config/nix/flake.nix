@@ -7,6 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    claude-code.url = "github:sadjow/claude-code-nix";
 
     # Optional: Declarative tap management
     homebrew-core = {
@@ -17,11 +18,20 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-laishulu = {
+      url = "github:laishulu/homebrew";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew, homebrew-core, homebrew-cask, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew, homebrew-core, homebrew-cask, homebrew-laishulu, claude-code, ... }:
   let
     configuration = { pkgs, config, ... }: {
+      nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
+      environment.systemPackages = [
+        pkgs.claude-code  # or pkgs.claude-code-bun if you prefer the bun-based build
+      ];
+
       homebrew = {
         enable = true;
         onActivation = {
@@ -30,6 +40,7 @@
         };
         brews = [
           "antidote"
+          "laishulu/homebrew/macism"
           "tpm"
           "mas"
           "gmp"
@@ -159,6 +170,7 @@
             taps = {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
+              "laishulu/homebrew" = homebrew-laishulu;
             };
 
             # Optional: Enable fully-declarative tap management

@@ -32,6 +32,6 @@
     just
     ollama
     hyperfine
-    claude-code
+    pokemon-colorscripts
   ];
 }
