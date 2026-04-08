@@ -6,6 +6,7 @@ let
       latexmk
       kotex-utf
       xetex       # Recommended engine for kotex
+      xetexko
       collection-langkorean
       scheme-basic          # minimal LaTeX scheme
       collection-latex
