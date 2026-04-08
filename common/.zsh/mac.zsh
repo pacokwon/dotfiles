@@ -6,6 +6,15 @@ autoload -U compinit && compinit
 setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
+# granular word boundary when using Ctrl-W
+
+autoload -Uz select-word-style
+select-word-style bash
+autoload -U backward-kill-word-match
+zle -N backward-kill-word backward-kill-word-match
+
+###########################
+
 eval "$(direnv hook zsh)"
 
 pathadd() {
@@ -59,3 +68,5 @@ export EZA_ICON_SPACING=2
 # END opam configuration
 
 eval "$(zoxide init zsh)"
+
+pokemon-colorscripts --random --no-title
