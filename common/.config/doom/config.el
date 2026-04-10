@@ -32,7 +32,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. Tjis is the default:
-(setq doom-theme 'doom-solarized-dark-high-contrast)
+(setq doom-theme 'catppuccin)
+(setq doom-themes-enable-bold t
+      doom-themes-enable-italic t)
 
 (setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font Propo" :size 16)
