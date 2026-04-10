@@ -19,7 +19,7 @@
       flake = false;
     };
     homebrew-laishulu = {
-      url = "github:laishulu/homebrew";
+      url = "github:laishulu/homebrew-homebrew";
       flake = false;
     };
   };
@@ -71,6 +71,7 @@
           "balenaetcher"
           "steam"
           "telegram-desktop"
+          "skim"
         ];
         masApps = {
           KakaoTalk = 869223134;
@@ -170,7 +171,7 @@
             taps = {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
-              "laishulu/homebrew" = homebrew-laishulu;
+              "laishulu/homebrew-homebrew" = homebrew-laishulu;
             };
 
             # Optional: Enable fully-declarative tap management
