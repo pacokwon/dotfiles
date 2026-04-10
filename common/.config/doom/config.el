@@ -79,6 +79,19 @@
   (sis-global-context-mode t)
   (sis-global-cursor-color-mode t))
 
+(after! latex
+  (add-hook 'before-save-hook #'indent-region nil t))
+
+(add-hook! 'LaTeX-mode-hook
+  (add-hook 'post-self-insert-hook
+            (lambda ()
+              (when (and (bound-and-true-p TeX-fold-mode)
+                         ;; Fold when we just typed a non-alpha char after a macro word
+                         (not (or (eq (char-before) ?\\)
+                                  (and (char-before) (string-match-p "[a-zA-Z*]" (string (char-before)))))))
+                (+latex-fold-last-macro-a)))
+            nil t))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
 ;; settings. E.g.
