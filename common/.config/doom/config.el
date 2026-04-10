@@ -71,6 +71,14 @@
 
 (add-to-list 'default-frame-alist '(undecorated . t))
 
+(use-package! sis
+  :config
+  (sis-ism-lazyman-config "com.apple.keylayout.ABC" "com.apple.inputmethod.Korean.2SetKorean")
+
+  (sis-global-respect-mode t)
+  (sis-global-context-mode t)
+  (sis-global-cursor-color-mode t))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
 ;; settings. E.g.
