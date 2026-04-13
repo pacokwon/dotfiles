@@ -53,6 +53,9 @@ alias less='less -RFX' # display color on less
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 # I'm using a symbols only nerd font as a fallback,
 # and an unpatched font as primary. the symbols look like
 # it's right next to the entries because it's bigger than other fonts
