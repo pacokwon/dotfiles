@@ -31,6 +31,7 @@
     zola
     just
     ollama
+    opencode
     hyperfine
     pokemon-colorscripts
   ];

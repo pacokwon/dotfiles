@@ -17,5 +17,8 @@
     rocqPackages.stdlib
     nixd
     lean4
+    lua-language-server
+    ruff
+    pyright
   ];
 }
