@@ -1,1 +1,0 @@
-/Users/pacokwon/workspace/tree-sitter-spectec/queries/highlights.scm
