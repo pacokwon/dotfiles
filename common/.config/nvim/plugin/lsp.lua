@@ -153,7 +153,6 @@ local servers = {
   ocamllsp = {},
   biome = {},
   vtsls = {
-    cmd = { 'npx', 'vtsls', '--stdio' },
     root_dir = function(_, callback)
       local deno_dir = vim.fs.root(0, { 'deno.json', 'deno.jsonc' })
       local root_dir = vim.fs.root(0, { 'tsconfig.json', 'jsconfig.json', 'package.json' })
@@ -167,7 +166,12 @@ local servers = {
   metals = {},
   lua_ls = {
     -- https://luals.github.io/wiki/settings/ | `:h nvim_get_runtime_file`
-    Lua = { workspace = { library = vim.api.nvim_get_runtime_file("lua", true) }, },
+    settings = {
+      Lua = {
+        diagnostics = { globals = { 'vim' } },
+        workspace = { library = vim.api.nvim_get_runtime_file("lua", true) },
+      },
+    },
   },
 }
 

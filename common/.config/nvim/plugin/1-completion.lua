@@ -3,14 +3,6 @@ vim.pack.add {
   { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.x') }
 }
 
-require('lazydev').setup {
-  library = {
-    -- See the configuration section for more details
-    -- Load luvit types when the `vim.uv` word is found
-    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-  },
-}
-
 require('blink.cmp').setup {
   keymap = {
     preset = 'default',
