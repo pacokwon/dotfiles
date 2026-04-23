@@ -16,9 +16,10 @@
     rocq-core
     rocqPackages.stdlib
     nixd
-    lean4
+    elan
     lua-language-server
     ruff
     pyright
+    vtsls
   ];
 }
