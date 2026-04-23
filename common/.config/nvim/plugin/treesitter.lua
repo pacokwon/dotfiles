@@ -3,28 +3,15 @@ vim.pack.add {
   'https://github.com/nvim-treesitter/nvim-treesitter-context',
 }
 
-require('nvim-treesitter').setup {
-  init = function()
-    vim.api.nvim_create_autocmd('FileType', {
-      callback = function()
-        -- Enable treesitter highlighting and disable regex syntax
-        pcall(vim.treesitter.start)
-        -- Enable treesitter-based indentation
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    })
-  end
-}
-
 local parsers = {
   'bash',
   'c',
   'css',
   'diff',
   'go',
+  'gitcommit',
   'html',
   'javascript',
-  'lean',
   'lua',
   'luadoc',
   'markdown',
@@ -38,12 +25,18 @@ local parsers = {
   'typescript',
   'vim',
   'vimdoc',
-  'spectec',
 }
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = parsers,
-  callback = function() vim.treesitter.start() end,
+  callback = function()
+    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+    if not lang then return end
+    if not pcall(vim.treesitter.start) then
+      if not require('nvim-treesitter.parsers')[lang] then return end
+      require('nvim-treesitter').install({ lang }):wait()
+      pcall(vim.treesitter.start)
+    end
+  end,
 })
 require('nvim-treesitter').install(parsers)
 
@@ -60,12 +53,21 @@ vim.filetype.add {
 vim.api.nvim_create_autocmd('User', {
   pattern = 'TSUpdate',
   callback = function()
-    require('nvim-treesitter.parsers').spectec = {
+    local parsers = require('nvim-treesitter.parsers')
+
+    parsers.spectec = {
       install_info = {
         path = '/Users/pacokwon/workspace/tree-sitter-spectec/',
         -- optional entries
         queries = 'queries', -- symlink queries from given directory
       },
+    }
+
+    -- https://github.com/Julian/tree-sitter-lean
+    parsers.lean = {
+      install_info = {
+        url = 'https://github.com/Julian/tree-sitter-lean',
+      }
     }
   end,
 })
