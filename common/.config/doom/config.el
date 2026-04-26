@@ -61,6 +61,10 @@
   (setq org-modern-star
         '("●" "○" "◆" "▶" "▸" "▹")))
 
+;; disable word wrap
+(remove-hook 'text-mode-hook #'visual-line-mode)
+(setq-default truncate-lines t)
+
 (map! :n "C-j" (lambda ()
                   (interactive)
                   (forward-line 10)))

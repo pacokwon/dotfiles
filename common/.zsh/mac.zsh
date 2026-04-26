@@ -45,6 +45,9 @@ setopt hist_ignore_all_dups
 # prevent entries starting with a space from being recorded
 setopt hist_ignore_space
 
+# prevents macos tar from adding Apple metadata files
+export COPYFILE_DISABLE=1
+
 alias vim="nvim"
 alias cat="bat"
 alias ls='eza --icons --color auto'

@@ -157,6 +157,8 @@
     wlogout
     zathura
     zulip
+    claude-code
+    poppler-utils
     (pkgs.texliveSmall.withPackages (
       ps: with ps; [
           dvisvgm dvipng # for preview and export as html

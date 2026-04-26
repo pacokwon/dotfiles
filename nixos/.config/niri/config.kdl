@@ -108,6 +108,11 @@ output "eDP-1" {
     position x=1280 y=0
 }
 
+output "HDMI-A-1" {
+    scale 1
+    transform "180"
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout

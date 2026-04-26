@@ -25,6 +25,14 @@
   ];
   services.xserver.videoDrivers = [ "amdgpu" ];
   services.emacs.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+    };
+  };
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   services.libinput = {
     enable = true;
