@@ -9,3 +9,8 @@ decorations = "None"
 [font.normal]
 family = "monospace"
 style = "Regular"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
