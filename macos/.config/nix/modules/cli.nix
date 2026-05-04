@@ -31,8 +31,10 @@
     zola
     just
     ollama
+    llama-cpp
     opencode
     hyperfine
     pokemon-colorscripts
+    glow
   ];
 }

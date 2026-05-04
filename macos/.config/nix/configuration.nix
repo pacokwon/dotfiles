@@ -44,6 +44,7 @@
       "steam"
       "telegram-desktop"
       "skim"
+      "anki"
     ];
     masApps = {
       KakaoTalk = 869223134;
@@ -74,6 +75,8 @@
 
   # Enable alternative shell support in nix-darwin.
   programs.direnv.enable = true;
+
+  services.skhd.enable = true;
 
   system.primaryUser = "pacokwon";
 
