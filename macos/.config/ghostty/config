@@ -28,3 +28,5 @@ font-feature = -calt, -liga, -dlig
 
 macos-option-as-alt = left
 # vim: ft=config
+
+clipboard-paste-protection = false
