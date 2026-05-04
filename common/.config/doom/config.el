@@ -41,6 +41,7 @@
       doom-big-font (font-spec :family "Iosevka" :size 20)
       doom-symbol-font (font-spec :family "Symbols Nerd Font Mono" :size 16))
 
+(set-fontset-font t 'hangul (font-spec :family "D2Coding"))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -65,13 +66,8 @@
 (remove-hook 'text-mode-hook #'visual-line-mode)
 (setq-default truncate-lines t)
 
-(map! :n "C-j" (lambda ()
-                  (interactive)
-                  (forward-line 10)))
-
-(map! :n "C-k" (lambda ()
-                  (interactive)
-                  (forward-line -10)))
+(map! :nv "C-j" "10j"
+      :nv "C-k" "10k")
 
 (add-to-list 'default-frame-alist '(undecorated . t))
 
@@ -84,17 +80,24 @@
   (sis-global-cursor-color-mode t))
 
 (after! latex
-  (add-hook 'before-save-hook #'indent-region nil t))
+  (add-hook 'before-save-hook #'indent-region nil t)
+  (map! :map LaTeX-mode-map
+        :localleader
+        :desc "Fold buffer" "b" #'TeX-fold-buffer))
 
 (add-hook! 'LaTeX-mode-hook
   (add-hook 'post-self-insert-hook
             (lambda ()
               (when (and (bound-and-true-p TeX-fold-mode)
                          ;; Fold when we just typed a non-alpha char after a macro word
-                         (not (or (eq (char-before) ?\\)
-                                  (and (char-before) (string-match-p "[a-zA-Z*]" (string (char-before)))))))
+                         (not (and (char-before)
+                                   (string-match-p "[a-zA-Z*]" (string (char-before))))))
                 (+latex-fold-last-macro-a)))
             nil t))
+
+(after! evil-snipe
+  (evil-snipe-mode -1)
+  (evil-snipe-override-mode -1))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
