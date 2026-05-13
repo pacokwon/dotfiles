@@ -45,6 +45,7 @@
       "telegram-desktop"
       "skim"
       "anki"
+      "discord"
     ];
     masApps = {
       KakaoTalk = 869223134;

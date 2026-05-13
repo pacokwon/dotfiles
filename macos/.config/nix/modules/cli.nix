@@ -36,5 +36,6 @@
     hyperfine
     pokemon-colorscripts
     glow
+    gemini-cli
   ];
 }
