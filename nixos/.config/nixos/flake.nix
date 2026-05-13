@@ -16,39 +16,47 @@
     };
   };
 
-  outputs = { self, nixpkgs, lanzaboote, silentSDDM, ...}:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      lanzaboote,
+      silentSDDM,
+      ...
+    }:
     let
       system = "x86_64-linux";
-    in {
-    nixosConfigurations = {
-      thinkpad = nixpkgs.lib.nixosSystem {
-        inherit system;
+    in
+    {
+      nixosConfigurations = {
+        thinkpad = nixpkgs.lib.nixosSystem {
+          inherit system;
 
-        specialArgs = { inherit silentSDDM; };
+          specialArgs = { inherit silentSDDM; };
 
-        modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
+          modules = [
+            # This is not a complete NixOS configuration and you need to reference
+            # your normal configuration here.
 
-          lanzaboote.nixosModules.lanzaboote
-          ./configuration.nix
-          ./thinkpad/configuration.nix
-        ];
-      };
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
+            lanzaboote.nixosModules.lanzaboote
+            ./configuration.nix
+            ./thinkpad/configuration.nix
+          ];
+        };
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
 
-        specialArgs = { inherit silentSDDM; };
+          specialArgs = { inherit silentSDDM; };
 
-        modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
+          modules = [
+            # This is not a complete NixOS configuration and you need to reference
+            # your normal configuration here.
 
-          lanzaboote.nixosModules.lanzaboote
-          ./configuration.nix
-          ./desktop/configuration.nix
-        ];
+            lanzaboote.nixosModules.lanzaboote
+            ./configuration.nix
+            ./desktop/configuration.nix
+          ];
+        };
       };
     };
-  };
 }

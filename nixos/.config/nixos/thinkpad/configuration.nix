@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }: {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./modules
-    ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules
+  ];
   networking.hostName = "thinkpad";
 
   hardware.graphics = {
@@ -40,10 +46,10 @@
   };
 
   fonts.fontconfig.defaultFonts = {
-    monospace = [ 
-      "Iosevka" 
-      "Noto Sans Mono CJK KR" 
-      "Symbols Nerd Font" 
+    monospace = [
+      "Iosevka"
+      "Noto Sans Mono CJK KR"
+      "Symbols Nerd Font"
     ];
   };
 
@@ -70,4 +76,7 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    wdisplays
+  ];
 }

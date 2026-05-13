@@ -1,13 +1,22 @@
-{ lib, pkgs, silentSDDM, ... }: {
-  imports =
-    [ # Include the results of the hardware scan.
-      silentSDDM.nixosModules.default
-    ];
+{
+  lib,
+  pkgs,
+  silentSDDM,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    silentSDDM.nixosModules.default
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Lanzaboote currently replaces the systemd-boot module.
   # This setting is usually set to true in configuration.nix
@@ -89,7 +98,14 @@
   users.users.pacokwon = {
     isNormalUser = true;
     description = "pacokwon";
-    extraGroups = [ "docker" "networkmanager" "wheel" "video" "render" "input" ];
+    extraGroups = [
+      "docker"
+      "networkmanager"
+      "wheel"
+      "video"
+      "render"
+      "input"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -129,7 +145,7 @@
     enable = true;
     config = {
       user = {
-        name  = "pacokwon";
+        name = "pacokwon";
         email = "haechank@gmail.com";
       };
       init.defaultBranch = "main";
@@ -143,7 +159,10 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    neovim
+    (neovim.override {
+      withPython3 = true;
+      extraPython3Packages = p: with p; [ pynvim ];
+    })
     wezterm
     alacritty
     ghostty
@@ -158,7 +177,11 @@
     direnv
     eza
     zoxide
-    gcc python314 opam deno nodejs
+    gcc
+    python314
+    opam
+    deno
+    nodejs
     gnumake
     killall
     unzip
@@ -166,7 +189,14 @@
     feh
     bibata-cursors
     protonvpn-gui
-    tree-sitter lua-language-server stylua nixd pyright ruff markdownlint-cli2
+    tree-sitter
+    lua-language-server
+    stylua
+    nixd
+    nixfmt
+    pyright
+    ruff
+    markdownlint-cli2
     just
     fuzzel
     wbg
@@ -180,12 +210,19 @@
     poppler-utils
     (pkgs.texliveSmall.withPackages (
       ps: with ps; [
-          dvisvgm dvipng # for preview and export as html
-          wrapfig amsmath ulem hyperref capt-of
+        dvisvgm
+        dvipng # for preview and export as html
+        wrapfig
+        amsmath
+        ulem
+        hyperref
+        capt-of
       ]
     ))
     tree
     pure-prompt
+    glow
+    gemini-cli
   ];
 
   fonts.packages = with pkgs; [
