@@ -10,7 +10,7 @@
       "src": "https://github.com/akinsho/bufferline.nvim"
     },
     "codecompanion.nvim": {
-      "rev": "2e33fbdd1ace1e5019ffba8891c5a23711005707",
+      "rev": "270e5d713f4d35c31e89d91d46c18aa67b05694f",
       "src": "https://github.com/olimorris/codecompanion.nvim"
     },
     "conform.nvim": {
@@ -20,6 +20,10 @@
     "copilot.vim": {
       "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
       "src": "https://github.com/github/copilot.vim"
+    },
+    "coqtail": {
+      "rev": "1c30ecc21b7555994691c1ee0db087f3d24c36a2",
+      "src": "https://github.com/whonore/coqtail"
     },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
@@ -137,6 +141,10 @@
     "vim-surround": {
       "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
       "src": "https://github.com/tpope/vim-surround"
+    },
+    "vsrocq.nvim": {
+      "rev": "dfa0e5a9e6b9fbd065fc6d9e1ec53e28f3dc11c5",
+      "src": "https://github.com/tomtomjhj/vsrocq.nvim"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
