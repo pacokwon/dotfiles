@@ -72,6 +72,7 @@
 (add-to-list 'default-frame-alist '(undecorated . t))
 
 (use-package! sis
+  :if (featurep 'cocoa) ; or (eq system-type 'darwin)
   :config
   (sis-ism-lazyman-config "com.apple.keylayout.ABC" "com.apple.inputmethod.Korean.2SetKorean")
 
