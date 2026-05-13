@@ -288,6 +288,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+vim.cmd.packadd 'nvim.tohtml'
+
 vim.pack.add({
   'https://github.com/NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   'https://github.com/rightson/vim-p4-syntax',
