@@ -1,7 +1,23 @@
-{ pkgs, config, inputs, ... }: {
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
+{
+  nix = {
+    # necessary for determinate nix
+    enable = false;
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    settings = {
+      experimental-features = "nix-command flakes";
+    };
+  };
+
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
   environment.systemPackages = [
-    pkgs.claude-code  # or pkgs.claude-code-bun if you prefer the bun-based build
+    pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
   ];
 
   homebrew = {
@@ -70,10 +86,6 @@
     d2coding
   ];
 
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
-  nix.enable = false;
-
   # Enable alternative shell support in nix-darwin.
   programs.direnv.enable = true;
 
@@ -109,8 +121,4 @@
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  environment.variables = {
-    ROCQPATH = "${pkgs.rocqPackages.stdlib}/lib/coq/9.0/user-contrib";
-  };
 }

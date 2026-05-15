@@ -5,16 +5,17 @@ let
       acmart
       latexmk
       kotex-utf
-      xetex       # Recommended engine for kotex
+      xetex # Recommended engine for kotex
       xetexko
       collection-langkorean
-      scheme-basic          # minimal LaTeX scheme
+      scheme-basic # minimal LaTeX scheme
       collection-latex
       collection-latexrecommended
       collection-latexextra
       collection-pictures
       collection-mathscience
-      collection-fontsrecommended;
+      collection-fontsrecommended
+      ;
   };
 in
 {

@@ -13,9 +13,8 @@
     clang-tools
     tree-sitter
     aider-chat
-    rocq-core
-    rocqPackages.stdlib
     nixd
+    nixfmt
     elan
     lua-language-server
     ruff

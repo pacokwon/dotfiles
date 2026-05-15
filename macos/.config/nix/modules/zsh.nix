@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # Add the package to system-wide packages
   environment.systemPackages = [
     pkgs.pure-prompt
