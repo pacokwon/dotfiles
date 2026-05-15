@@ -10,3 +10,7 @@ require("codecompanion").setup({
     log_level = "DEBUG",
   }
 })
+
+vim.g.copilot_filetypes = {
+  ['coq'] = false,
+}
