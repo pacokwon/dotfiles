@@ -43,6 +43,11 @@
 
 (set-fontset-font t 'hangul (font-spec :family "D2Coding"))
 
+(setq text-scale-mode-step 1.2)
+
+;; Set the scroll-off (scrolloff) value
+(setq scroll-margin 10)
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
@@ -99,6 +104,36 @@
 (after! evil-snipe
   (evil-snipe-mode -1)
   (evil-snipe-override-mode -1))
+
+(use-package! rocq-mode
+  :hook
+  (coq-mode . rocq-mode)
+  (rocq-mode . rocq-follow-viewport-mode)
+  (rocq-mode . rocq-auto-goals-at-point-mode))
+
+(after! rocq-mode
+  (set-face-attribute 'rocq-mode-last-request nil :background "#313244" :underline nil)
+  (set-face-attribute 'rocq-mode-processing-face nil :background "#313244" :underline nil)
+  (add-hook 'rocq-mode-hook (lambda ()
+    (setq prettify-symbols-alist
+          '(("alpha" . ?α) ("beta" . ?β) ("gamma" . ?γ) ("delta" . ?δ)
+            ("epsilon" . ?ε) ("zeta" . ?ζ) ("eta" . ?η) ("theta" . ?θ)
+            ("iota" . ?ι) ("kappa" . ?κ) ("lambda" . ?λ) ("mu" . ?μ)
+            ("nu" . ?ν) ("xi" . ?ξ) ("pi" . ?π) ("rho" . ?ρ)
+            ("sigma" . ?σ) ("tau" . ?τ) ("upsilon" . ?υ) ("phi" . ?ϕ)
+            ("chi" . ?χ) ("psi" . ?ψ) ("omega" . ?ω)
+            ("Gamma" . ?Γ) ("Delta" . ?Δ) ("Theta" . ?Θ) ("Lambda" . ?Λ)
+            ("Xi" . ?Ξ) ("Pi" . ?Π) ("Sigma" . ?Σ) ("Upsilon" . ?Υ)
+            ("Phi" . ?Φ) ("Psi" . ?Ψ) ("Omega" . ?Ω)
+            ("forall" . ?∀) ("exists" . ?∃)
+            ("nat" . ?ℕ) ("complex" . ?ℂ) ("real" . ?ℝ)
+            ("int" . ?ℤ) ("rat" . ?ℚ)
+            ("<=" . ?≤) (">=" . ?≥) ("=>" . ?⇒)
+            ("->" . ?→) ("<-" . ?←) ("<->" . ?↔)
+            ("\\/" . ?∨) ("/\\" . ?∧) ("~" . ?¬)
+            ("<>" . ?≠) ("|-" . ?⊢)
+            ("===" . ?≡) ("=/=" . ?≢)))
+    (prettify-symbols-mode 1))))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your

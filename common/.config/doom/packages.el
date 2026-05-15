@@ -55,3 +55,5 @@
 
 (package! catppuccin-theme)
 (package! sis)
+(package! rocq-mode
+  :recipe (:host codeberg :repo "jpoiret/rocq-mode.el"))
