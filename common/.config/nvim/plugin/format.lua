@@ -9,7 +9,6 @@ require('conform').setup {
     local disable_filetypes = {
       c = true,
       css = true,
-      ocaml = true,
       ocamllex = true,
       menhir = true,
       html = true,
