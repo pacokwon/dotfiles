@@ -13,6 +13,12 @@ bindkey '^[[1;3D' backward-word
 # Bind Alt + Right Arrow to move forward one word
 bindkey '^[[1;3C' forward-word
 
+# granular word boundary when using Ctrl-W
+autoload -Uz select-word-style
+select-word-style bash
+autoload -U backward-kill-word-match
+zle -N backward-kill-word backward-kill-word-match
+
 autoload -U compinit && compinit
 setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
@@ -26,6 +32,10 @@ pathadd() {
     *":$1:"*) ;;
     *) PATH="$PATH:$1" ;;
   esac
+}
+
+zathura() {
+  command zathura "$@" &>/dev/null & disown
 }
 
 pathadd "$HOME/.local/bin"
