@@ -292,8 +292,6 @@ vim.cmd.packadd 'nvim.tohtml'
 
 vim.pack.add({
   'https://github.com/NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-  'https://github.com/rightson/vim-p4-syntax',
-
   'https://github.com/tpope/vim-surround',
   'https://github.com/tpope/vim-repeat',
   'https://github.com/nvim-tree/nvim-web-devicons',

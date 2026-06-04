@@ -134,10 +134,6 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-p4-syntax": {
-      "rev": "49f61c773275f87787a4df55de0f6180a0110c4b",
-      "src": "https://github.com/rightson/vim-p4-syntax"
-    },
     "vim-repeat": {
       "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
       "src": "https://github.com/tpope/vim-repeat"

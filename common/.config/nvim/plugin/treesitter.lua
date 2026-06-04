@@ -47,29 +47,41 @@ vim.filetype.add {
     mll = 'ocamllex',
     mly = 'menhir',
     stf = 'config',
+    p4 = 'p4',
   },
 }
 
+vim.treesitter.language.register('p4', 'p4')
+
+local function register_custom_parsers()
+  local ts_parsers = require('nvim-treesitter.parsers')
+
+  ts_parsers.spectec = {
+    install_info = {
+      path = '/Users/pacokwon/workspace/tree-sitter-spectec/',
+    },
+  }
+
+  ts_parsers.lean = {
+    install_info = {
+      url = 'https://github.com/Julian/tree-sitter-lean',
+    }
+  }
+
+  ts_parsers.p4 = {
+    install_info = {
+      url = 'https://github.com/pacokwon/tree-sitter-p4',
+      -- path = '/Users/pacokwon/workspace/tree-sitter-p4/',
+      queries = 'queries'
+    },
+  }
+end
+
+register_custom_parsers()
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'TSUpdate',
-  callback = function()
-    local parsers = require('nvim-treesitter.parsers')
-
-    parsers.spectec = {
-      install_info = {
-        path = '/Users/pacokwon/workspace/tree-sitter-spectec/',
-        -- optional entries
-        queries = 'queries', -- symlink queries from given directory
-      },
-    }
-
-    -- https://github.com/Julian/tree-sitter-lean
-    parsers.lean = {
-      install_info = {
-        url = 'https://github.com/Julian/tree-sitter-lean',
-      }
-    }
-  end,
+  callback = register_custom_parsers,
 })
 
 vim.api.nvim_create_autocmd('PackChanged', {
