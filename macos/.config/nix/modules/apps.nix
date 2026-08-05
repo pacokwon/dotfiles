@@ -6,5 +6,6 @@
     slack
     zoom-us
     raycast
+    iina
   ];
 }

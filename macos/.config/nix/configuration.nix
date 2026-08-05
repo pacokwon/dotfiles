@@ -39,7 +39,6 @@
     casks = [
       "ghostty"
       "messenger"
-      "whatsapp"
       "firefox"
       "ungoogled-chromium"
       "google-chrome"

@@ -39,6 +39,10 @@
     hyperfine
     pokemon-colorscripts
     glow
-    gemini-cli
+    poppler-utils
+    uv
+    asciidoctor
+    gh
+    difftastic
   ];
 }
