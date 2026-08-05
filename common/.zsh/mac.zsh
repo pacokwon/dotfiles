@@ -30,6 +30,16 @@ pathadd "$HOME/.local/bin"
 pathadd "$HOME/.deno/bin"
 pathadd "$HOME/.config/emacs/bin"
 
+# filepath completion for just
+_just_completion() {
+if (( CURRENT > 2 )); then
+  _files
+else
+  _just
+fi
+}
+compdef _just_completion just
+
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
 export DELTA_FEATURES="+side-by-side line-numbers"
