@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "blink-cmp-latex": {
+      "rev": "4f2910b98dabed17a1667ab806354faa8763098e",
+      "src": "https://github.com/erooke/blink-cmp-latex"
+    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
@@ -72,6 +76,10 @@
     "mini.nvim": {
       "rev": "c67822c53e8e282fe863343e88aa0a8ca3534059",
       "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "modus-themes.nvim": {
+      "rev": "17a64464c27c1be605adca13dbe48f2f402fe107",
+      "src": "https://github.com/miikanissi/modus-themes.nvim"
     },
     "nvim": {
       "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",

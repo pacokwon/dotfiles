@@ -58,7 +58,8 @@ local function register_custom_parsers()
 
   ts_parsers.spectec = {
     install_info = {
-      path = '/Users/pacokwon/workspace/tree-sitter-spectec/',
+      path = '/Users/pacokwon/workspace/new-tree-sitter-spectec/',
+      queries = 'queries'
     },
   }
 
