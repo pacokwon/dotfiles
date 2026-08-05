@@ -65,6 +65,9 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 # Adjust the spacing with this variable
 export EZA_ICON_SPACING=2
 
+# trying to make claude code scroll work with tmux's copy mode
+export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
+
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
 #   - the correct directories to the PATH
