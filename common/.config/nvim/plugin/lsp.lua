@@ -173,6 +173,7 @@ local servers = {
       },
     },
   },
+  hls = {},
 }
 
 for server, config in pairs(servers) do
