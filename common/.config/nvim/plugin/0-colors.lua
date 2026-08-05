@@ -3,8 +3,7 @@ vim.pack.add {
   'https://github.com/projekt0n/github-nvim-theme',
   'https://github.com/ellisonleao/gruvbox.nvim',
   'https://github.com/catppuccin/nvim',
-  'https://github.com/nyoom-engineering/oxocarbon.nvim',
-  'https://github.com/navarasu/onedark.nvim',
+  'https://github.com/miikanissi/modus-themes.nvim',
 }
 
 -- local colorschemes = {
@@ -89,7 +88,21 @@ vim.pack.add {
 --   },
 -- }
 
-vim.cmd.colorscheme 'catppuccin-mocha'
+require('modus-themes').setup {
+  on_highlights = function(highlights, colors)
+    -- modus links RenderMarkdownCode -> markdownCodeBlock which sets fg=cyan_cooler,
+    -- overriding injected treesitter highlights inside fenced code blocks.
+    -- Use only a bg so injected syntax colors can show through.
+    highlights['RenderMarkdownCode'] = { bg = colors.bg_main }
+    highlights['@markup.raw.block'] = {}
+    highlights['LineNr'] = { fg = colors.fg_main, bg = colors.bg_main }
+    highlights['LineNrAbove'] = { fg = colors.fg_dim, bg = colors.bg_main }
+    highlights['LineNrBelow'] = { fg = colors.fg_dim, bg = colors.bg_main }
+    highlights['SignColumn'] = { fg = colors.fg_dim, bg = colors.bg_main }
+  end,
+}
+
+-- vim.cmd.colorscheme 'catppuccin-mocha'
 
 -- local plugin_name = 'catppuccin'
 -- local variant = 'catppuccin-mocha'
@@ -109,3 +122,5 @@ vim.cmd.colorscheme 'catppuccin-mocha'
 -- end
 --
 -- return colorschemes
+
+vim.cmd.colorscheme 'modus'
