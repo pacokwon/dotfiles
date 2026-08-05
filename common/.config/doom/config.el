@@ -74,6 +74,11 @@
 (map! :nv "C-j" "10j"
       :nv "C-k" "10k")
 
+(map! :nv "w" #'evil-forward-WORD-begin
+      :nv "b" #'evil-backward-WORD-begin
+      :nv "e" #'evil-forward-WORD-end
+      :nv "ge" #'evil-backward-WORD-end)
+
 (add-to-list 'default-frame-alist '(undecorated . t))
 
 (use-package! sis
@@ -129,7 +134,7 @@
       ("int" . ?ℤ) ("rat" . ?ℚ)
       ("<=" . ?≤) (">=" . ?≥) ("=>" . ?⇒)
       ("->" . ?→) ("<-" . ?←) ("<->" . ?↔)
-      ("\\/" . ?∨) ("/\\" . ?∧) ("~" . ?¬)
+      ("\\/" . ?∨) ("/\\" . ?∧)
       ("<>" . ?≠) ("|-" . ?⊢)
       ("===" . ?≡) ("=/=" . ?≢)))
   (dolist (hook '(rocq-mode-hook rocq-goal-mode-hook))
