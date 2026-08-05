@@ -11,6 +11,7 @@ require("codecompanion").setup({
   }
 })
 
+-- disable by default for all filetypes
 vim.g.copilot_filetypes = {
-  ['coq'] = false,
+  ['*'] = false,
 }
