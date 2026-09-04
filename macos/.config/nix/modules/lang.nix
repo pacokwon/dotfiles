@@ -1,24 +1,30 @@
 { pkgs, ... }:
 {
+  environment.variables = {
+    JAVA_HOME = "${pkgs.jdk21}";
+  };
+
   environment.systemPackages = with pkgs; [
-    deno
-    go
-    rustc
     cargo
-    opam
-    nodejs_22
-    yarn-berry_3
-    python314
-    markdownlint-cli2
     clang-tools
-    tree-sitter
-    aider-chat
+    deno
+    dune-release
+    elan
+    go
+    jdk21
+    lua-language-server
+    markdownlint-cli2
     nixd
     nixfmt
-    elan
-    lua-language-server
-    ruff
+    nodejs_22
+    opam
     pyright
+    python314
+    ruff
+    rustc
+    tree-sitter
+    typst
     vtsls
+    yarn-berry_3
   ];
 }

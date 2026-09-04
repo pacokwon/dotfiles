@@ -3,18 +3,19 @@ let
   tex = pkgs.texlive.combine {
     inherit (pkgs.texlive)
       acmart
-      latexmk
+      collection-fontsrecommended
+      collection-langkorean
+      collection-latex
+      collection-latexextra
+      collection-latexrecommended
+      collection-mathscience
+      collection-pictures
+      dvisvgm
       kotex-utf
+      latexmk
+      scheme-basic # minimal LaTeX scheme
       xetex # Recommended engine for kotex
       xetexko
-      collection-langkorean
-      scheme-basic # minimal LaTeX scheme
-      collection-latex
-      collection-latexrecommended
-      collection-latexextra
-      collection-pictures
-      collection-mathscience
-      collection-fontsrecommended
       ;
   };
 in

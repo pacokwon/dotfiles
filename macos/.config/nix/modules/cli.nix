@@ -8,41 +8,44 @@
       withPython3 = true;
       extraPython3Packages = p: with p; [ pynvim ];
     })
-    zsh
-    stow
-    bat
-    ripgrep
-    fd
-    fzf
-    eza
-    lazygit
-    bear
-    tmux
-    yt-dlp
-    ffmpeg
-    qemu
-    gdb
-    tree
-    direnv
-    tokei
-    gnupatch
-    delta
-    zoxide
-    rlwrap
-    docker
-    colima
-    zola
-    just
-    ollama
-    llama-cpp
-    opencode
-    hyperfine
-    pokemon-colorscripts
-    glow
-    poppler-utils
-    uv
     asciidoctor
-    gh
+    bat
+    bear
+    colima
+    delta
     difftastic
+    direnv
+    docker
+    eza
+    fd
+    ffmpeg
+    fzf
+    gdb
+    gh
+    glow
+    gnupatch
+    go-grip
+    hyperfine
+    just
+    lazygit
+    llama-cpp
+    mitmproxy
+    ollama
+    opencode
+    pokemon-colorscripts
+    poppler-utils
+    qemu
+    rclone
+    ripgrep
+    rlwrap
+    stow
+    tmux
+    tokei
+    tree
+    uv
+    yt-dlp
+    zola
+    zoxide
+    zsh
   ];
 }
