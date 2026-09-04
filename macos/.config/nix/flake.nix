@@ -10,14 +10,9 @@
     claude-code.url = "github:sadjow/claude-code-nix";
 
     # Optional: Declarative tap management
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
+    # NOTE: homebrew/core and homebrew/cask are no longer tapped declaratively.
+    # Homebrew 5.x installs from the API and tries to untap them, which fails
+    # while casks are installed. Let Homebrew manage them via the API instead.
     homebrew-laishulu = {
       url = "github:laishulu/homebrew-homebrew";
       flake = false;
@@ -31,8 +26,6 @@
       nixpkgs,
       mac-app-util,
       nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
       homebrew-laishulu,
       ...
     }:
@@ -66,8 +59,6 @@
 
               # Optional: Declarative tap management
               taps = {
-                "homebrew/homebrew-core" = homebrew-core;
-                "homebrew/homebrew-cask" = homebrew-cask;
                 "laishulu/homebrew-homebrew" = homebrew-laishulu;
               };
 
@@ -75,6 +66,7 @@
               #
               # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
               mutableTaps = false;
+              autoMigrate = true;
             };
 
             # Set Git commit hash for darwin-version.

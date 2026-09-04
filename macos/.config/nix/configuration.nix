@@ -66,7 +66,8 @@
     masApps = {
       KakaoTalk = 869223134;
       Hangul = 416746898;
-      # Xcode = 497799835;
+      Xcode = 497799835;
+      Keynote = 361285480;
       Goodnotes = 1444383602;
     };
   };
