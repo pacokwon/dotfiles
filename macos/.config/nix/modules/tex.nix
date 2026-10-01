@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  tex = pkgs.texlive.combine {
-    inherit (pkgs.texlive)
+  tex = pkgs.texliveSmall.withPackages (
+    ps: with ps; [
       acmart
       collection-fontsrecommended
       collection-langkorean
@@ -13,11 +13,10 @@ let
       dvisvgm
       kotex-utf
       latexmk
-      scheme-basic # minimal LaTeX scheme
       xetex # Recommended engine for kotex
       xetexko
-      ;
-  };
+    ]
+  );
 in
 {
   environment.systemPackages = [

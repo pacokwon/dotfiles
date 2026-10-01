@@ -5,9 +5,16 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    mac-app-util.url = "github:hraban/mac-app-util";
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs"; # temporarily override nixpkgs url to get SBCL v2.6.6
+    };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     claude-code.url = "github:sadjow/claude-code-nix";
+    lean-lsp-mcp = {
+      url = "github:oOo0oOo/lean-lsp-mcp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Optional: Declarative tap management
     # NOTE: homebrew/core and homebrew/cask are no longer tapped declaratively.

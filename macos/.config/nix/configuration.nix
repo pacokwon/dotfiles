@@ -18,6 +18,7 @@
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
   environment.systemPackages = [
     pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
+    inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   homebrew = {
@@ -37,31 +38,32 @@
       "watchexec"
     ];
     casks = [
-      "ghostty"
-      "messenger"
-      "firefox"
-      "ungoogled-chromium"
-      "google-chrome"
-      "obs"
-      "dolphin"
       "amethyst"
-      "thunderbird"
-      "mgba-app"
-      "chatgpt"
-      "zulip"
-      "scroll-reverser"
-      "font-bree-serif"
-      "input-source-pro"
-      "protonvpn"
-      "signal"
-      "karabiner-elements"
+      "anki"
       "balenaetcher"
+      "blackhole-2ch"
+      "chatgpt"
+      "claude"
+      "discord"
+      "dolphin"
+      "firefox"
+      "font-bree-serif"
+      "ghostty"
+      "google-chrome"
+      "input-source-pro"
+      "karabiner-elements"
+      "messenger"
+      "mgba-app"
+      "obs"
+      "protonvpn"
+      "scroll-reverser"
+      "signal"
+      "skim"
       "steam"
       "telegram-desktop"
-      "skim"
-      "anki"
-      "discord"
-      "blackhole-2ch"
+      "thunderbird"
+      "ungoogled-chromium"
+      "zulip"
     ];
     masApps = {
       KakaoTalk = 869223134;
