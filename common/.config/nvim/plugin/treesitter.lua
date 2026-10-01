@@ -38,6 +38,7 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
 require('nvim-treesitter').install(parsers)
 
 vim.filetype.add {
@@ -58,21 +59,14 @@ local function register_custom_parsers()
 
   ts_parsers.spectec = {
     install_info = {
-      path = '/Users/pacokwon/workspace/new-tree-sitter-spectec/',
+      url = 'https://github.com/pacokwon/tree-sitter-spectec',
       queries = 'queries'
     },
-  }
-
-  ts_parsers.lean = {
-    install_info = {
-      url = 'https://github.com/Julian/tree-sitter-lean',
-    }
   }
 
   ts_parsers.p4 = {
     install_info = {
       url = 'https://github.com/pacokwon/tree-sitter-p4',
-      -- path = '/Users/pacokwon/workspace/tree-sitter-p4/',
       queries = 'queries'
     },
   }
