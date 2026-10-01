@@ -5,7 +5,13 @@ vim.pack.add {
   'https://github.com/tomtomjhj/coq-lsp.nvim',
 }
 
-require('lean').setup { mappings = true }
+require('lean').setup {
+  mappings = true,
+  abbreviations = {
+    enable = true,
+    leader = '\\'
+  }
+}
 
 vim.g.coqtail_treat_stderr_as_warning = 1
 vim.g.loaded_coqtail = 1
