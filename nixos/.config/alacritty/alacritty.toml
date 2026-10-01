@@ -12,3 +12,8 @@ normal = { family = "Iosevka", style = "Regular" }
 
 [colors]
 cursor = { cursor = "#a6e3a1", text = "CellBackground" }
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

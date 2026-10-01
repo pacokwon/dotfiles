@@ -259,7 +259,7 @@
   # Bridge the gap for Qt apps (like OBS or VLC)
   qt = {
     enable = true;
-    platformTheme = "gtk2";
+    platformTheme = "gnome";
     style = "adwaita-dark";
   };
 
