@@ -12,10 +12,12 @@
     bat
     bear
     colima
+    d2
     delta
     difftastic
     direnv
     docker
+    dprint
     eza
     fd
     ffmpeg
