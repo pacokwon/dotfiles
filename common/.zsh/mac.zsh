@@ -63,6 +63,7 @@ alias cat="bat"
 alias ls='eza --icons --color auto'
 alias ll='eza --icons --color auto -l'
 alias less='less -RFX' # display color on less
+alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal claude'
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
