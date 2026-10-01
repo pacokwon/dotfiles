@@ -15,7 +15,7 @@ require('blink.cmp').setup {
     documentation = { auto_show = true, auto_show_delay_ms = 500 },
   },
   sources = {
-    default = { 'lsp', 'buffer', 'path', 'snippets', 'lazydev', 'buffer', 'latex' },
+    default = { 'lsp', 'buffer', 'path', 'snippets', 'lazydev', 'latex' },
     providers = {
       lazydev = {
         module = 'lazydev.integrations.blink',
@@ -25,13 +25,19 @@ require('blink.cmp').setup {
         name = 'Latex',
         module = 'blink-cmp-latex',
         score_offset = 90,
+        -- Only enable in LaTeX/markdown. This source registers `_` (subscript)
+        -- as a trigger character; in code buffers that makes typing
+        -- `_` mid-identifier fire a fresh empty completion and drop the LSP menu.
+        enabled = function()
+          return vim.tbl_contains({ 'tex', 'latex', 'markdown', 'quarto' }, vim.bo.filetype)
+        end,
         opts = {
           insert_command = false,
         }
       }
     },
   },
-  fuzzy = { implementation = 'lua' },
+  fuzzy = { implementation = 'prefer_rust' },
   cmdline = {
     keymap = { preset = 'inherit' },
     completion = { menu = { auto_show = true } },
