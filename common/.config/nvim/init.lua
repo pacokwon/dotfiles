@@ -245,12 +245,15 @@ vim.api.nvim_create_user_command('TOhtmlSelection', function()
 
   -- Optional: disable indent guides so virtual text doesn't get captured
   pcall(vim.cmd, 'IBLDisable')
+  local colo = vim.g.colors_name
+  pcall(vim.cmd.colorscheme, 'catppuccin-latte')
 
   local winid = vim.api.nvim_get_current_win()
   local lines = require('tohtml').tohtml(winid, {
     range = { start_line, end_line }, -- 1-based inclusive line range
   })
 
+  pcall(vim.cmd.colorscheme, colo)
   pcall(vim.cmd, 'IBLEnable')
 
   local tmp_in = vim.fn.tempname() .. '.html'
