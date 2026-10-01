@@ -6,11 +6,9 @@ import = [
 [window]
 decorations = "None"
 
-[font.normal]
-family = "monospace"
-style = "Regular"
+[font]
+size = 12
+normal = { family = "Iosevka", style = "Regular" }
 
-[[keyboard.bindings]]
-key = "Return"
-mods = "Shift"
-chars = "\u001B\r"
+[colors]
+cursor = { cursor = "#a6e3a1", text = "CellBackground" }

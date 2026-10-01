@@ -87,4 +87,6 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+  ];
 }

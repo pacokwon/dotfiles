@@ -75,6 +75,9 @@
   };
 
   programs.dconf.enable = true;
+  programs.dconf.profiles.user.databases = [{
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  }];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
