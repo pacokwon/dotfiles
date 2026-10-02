@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ../common/zsh.nix
+  ];
+
   nix = {
     # necessary for determinate nix
     enable = false;
@@ -16,10 +20,13 @@
   };
 
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
-  environment.systemPackages = [
-    pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
-    inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
+
+  environment.systemPackages =
+    (import ../common/packages.nix { inherit pkgs; })
+    ++ [
+      pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
+      inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
 
   homebrew = {
     enable = true;
@@ -74,20 +81,16 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.hack
-    nerd-fonts.victor-mono
-    nerd-fonts.symbols-only
-    nerd-fonts.iosevka
-    nerd-fonts.iosevka-term
-    noto-fonts-cjk-sans
-    nerd-fonts.roboto-mono
-    roboto-mono
-    iosevka
-    atkinson-hyperlegible
-    pretendard
-    d2coding
-  ];
+  fonts.packages =
+    (import ../common/fonts.nix { inherit pkgs; })
+    ++ (with pkgs; [
+      nerd-fonts.iosevka-term
+      nerd-fonts.roboto-mono
+      roboto-mono
+      atkinson-hyperlegible
+      pretendard
+      d2coding
+    ]);
 
   # Enable alternative shell support in nix-darwin.
   programs.direnv.enable = true;
@@ -125,3 +128,5 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 }
+
+# vim: ts=2 sts=2 sw=2 et

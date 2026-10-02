@@ -275,7 +275,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "wbg" "-s" "/home/pacokwon/.config/nixos/wallpapers/nix-d-nord-purple.jpg"
+spawn-at-startup "wbg" "-s" "/home/pacokwon/.config/nix/nixos/wallpapers/nix-d-nord-purple.jpg"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

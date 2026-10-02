@@ -8,6 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     silentSDDM.nixosModules.default
+    ../common/zsh.nix
   ];
 
   # Allow unfree packages
@@ -117,25 +118,6 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sessionPackages = [ pkgs.niri ];
   programs.firefox.enable = true;
-  programs.zsh = {
-    enable = true;
-    promptInit = ''
-      # Add Pure to the fpath
-      fpath+=( "${pkgs.pure-prompt}/share/zsh/site-functions" )
-
-      # Initialize the prompt system
-      autoload -U promptinit; promptinit
-
-      zstyle :prompt:pure:git:stash show yes
-      zstyle :prompt:pure:git:action show yes
-      zstyle :prompt:pure:git:arrow show yes
-      zstyle ':prompt:pure:git:branch' color '#4EF279'
-      zstyle ':prompt:pure:prompt:success' color cyan
-
-      # Set the prompt to pure
-      prompt pure
-    '';
-  };
 
   programs.tmux = {
     enable = true;
@@ -159,87 +141,54 @@
     enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    (neovim.override {
-      withPython3 = true;
-      extraPython3Packages = p: with p; [ pynvim ];
-    })
-    wezterm
-    alacritty
-    ghostty
-    bat
-    ripgrep
-    fd
-    fzf
-    ffmpeg
-    obsidian
-    thunar
-    stow
-    direnv
-    eza
-    zoxide
-    gcc
-    python314
-    opam
-    deno
-    nodejs
-    gnumake
-    killall
-    unzip
-    signal-desktop
-    feh
-    bibata-cursors
-    protonvpn-gui
-    tree-sitter
-    lua-language-server
-    stylua
-    nixd
-    nixfmt
-    pyright
-    ruff
-    markdownlint-cli2
-    just
-    fuzzel
-    wbg
-    swaylock
-    brightnessctl
-    playerctl
-    wlogout
-    zathura
-    zulip
-    claude-code
-    poppler-utils
-    (pkgs.texliveSmall.withPackages (
-      ps: with ps; [
-        dvisvgm
-        dvipng # for preview and export as html
-        wrapfig
-        amsmath
-        ulem
-        hyperref
-        capt-of
-      ]
-    ))
-    tree
-    pure-prompt
-    glow
-    gemini-cli
-  ];
+  environment.systemPackages =
+    (import ../common/packages.nix { inherit pkgs; })
+    ++ (with pkgs; [
+      # NixOS-only packages (GUI apps, wayland, hardware, linux-specific)
+      wezterm
+      alacritty
+      ghostty
+      obsidian
+      thunar
+      gcc
+      gnumake
+      nodejs
+      killall
+      unzip
+      signal-desktop
+      feh
+      bibata-cursors
+      proton-vpn
+      stylua
+      fuzzel
+      wbg
+      swaylock
+      brightnessctl
+      playerctl
+      wlogout
+      zathura
+      zulip
+      (pkgs.texliveSmall.withPackages (
+        ps: with ps; [
+          dvisvgm
+          dvipng # for preview and export as html
+          wrapfig
+          amsmath
+          ulem
+          hyperref
+          capt-of
+        ]
+      ))
+    ]);
 
-  fonts.packages = with pkgs; [
-    dejavu_fonts
-    nerd-fonts.hack
-    nerd-fonts.victor-mono
-    nerd-fonts.symbols-only
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.iosevka
-    noto-fonts-cjk-sans
-    nanum-gothic-coding
-    iosevka
-    material-design-icons
-  ];
+  fonts.packages =
+    (import ../common/fonts.nix { inherit pkgs; })
+    ++ (with pkgs; [
+      dejavu_fonts
+      nerd-fonts.jetbrains-mono
+      nanum-gothic-coding
+      material-design-icons
+    ]);
 
   fonts.fontconfig.defaultFonts = {
     monospace = [

@@ -1,11 +1,5 @@
 { pkgs, ... }:
 {
-  # Add the package to system-wide packages
-  environment.systemPackages = [
-    pkgs.pure-prompt
-  ];
-
-  # Enable Zsh and configure the interactive shell init
   programs.zsh = {
     enable = true;
     promptInit = ''
