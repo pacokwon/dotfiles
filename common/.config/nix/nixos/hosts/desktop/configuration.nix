@@ -72,7 +72,11 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
     ];
-    blacklistedKernelModules = [ "nouveau" ];
+    blacklistedKernelModules = [
+      "nouveau"
+      "pcspkr"
+      "snd_pcsp"
+    ];
   };
 
   services.keyd = {

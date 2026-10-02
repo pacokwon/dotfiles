@@ -59,3 +59,5 @@ alias less='less -RFX' # display color on less
 export EZA_ICON_SPACING=2
 
 eval "$(zoxide init zsh)"
+
+pokemon-colorscripts --random --no-title

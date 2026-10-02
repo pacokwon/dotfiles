@@ -45,14 +45,12 @@
   outputs =
     inputs@{
       self,
-      nixpkgs,
       nixpkgs-nixos,
       nix-darwin,
       mac-app-util,
       nix-homebrew,
       homebrew-laishulu,
       lanzaboote,
-      silentSDDM,
       ...
     }:
     let
@@ -104,7 +102,7 @@
       nixosConfigurations = {
         thinkpad = nixpkgs-nixos.lib.nixosSystem {
           system = linuxSystem;
-          specialArgs = { inherit silentSDDM; };
+          specialArgs = { inherit inputs; };
           modules = [
             lanzaboote.nixosModules.lanzaboote
             ./nixos/configuration.nix
@@ -113,7 +111,7 @@
         };
         desktop = nixpkgs-nixos.lib.nixosSystem {
           system = linuxSystem;
-          specialArgs = { inherit silentSDDM; };
+          specialArgs = { inherit inputs; };
           modules = [
             lanzaboote.nixosModules.lanzaboote
             ./nixos/configuration.nix

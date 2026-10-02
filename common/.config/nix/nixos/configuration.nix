@@ -1,23 +1,27 @@
 {
   lib,
   pkgs,
-  silentSDDM,
+  inputs,
   ...
 }:
 {
   imports = [
     # Include the results of the hardware scan.
-    silentSDDM.nixosModules.default
+    inputs.silentSDDM.nixosModules.default
     ../common/zsh.nix
   ];
+
+  nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    registry.nixpkgs.flake = inputs.nixpkgs-nixos;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
   # Lanzaboote currently replaces the systemd-boot module.
   # This setting is usually set to true in configuration.nix
@@ -168,6 +172,7 @@
       wlogout
       zathura
       zulip
+      pokemon-colorscripts
       (pkgs.texliveSmall.withPackages (
         ps: with ps; [
           dvisvgm
