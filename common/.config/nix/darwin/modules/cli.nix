@@ -28,5 +28,6 @@
     yt-dlp
     zola
     zsh
+    oterm
   ];
 }
