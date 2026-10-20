@@ -21,12 +21,10 @@
 
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
 
-  environment.systemPackages =
-    (import ../common/packages.nix { inherit pkgs; })
-    ++ [
-      pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
-      inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+  environment.systemPackages = (import ../common/packages.nix { inherit pkgs; }) ++ [
+    pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
+    inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 
   homebrew = {
     enable = true;
@@ -63,6 +61,7 @@
       "mgba-app"
       "obs"
       "protonvpn"
+      "raycast"
       "scroll-reverser"
       "signal"
       "skim"

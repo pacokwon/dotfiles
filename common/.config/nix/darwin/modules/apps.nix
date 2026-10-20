@@ -5,7 +5,6 @@
     obsidian
     slack
     zoom-us
-    raycast
     iina
   ];
 }
