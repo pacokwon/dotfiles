@@ -79,13 +79,7 @@ export EZA_ICON_SPACING=2
 # trying to make claude code scroll work with tmux's copy mode
 export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
 
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
 [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
-# END opam configuration
 
 eval "$(zoxide init zsh)"
 
