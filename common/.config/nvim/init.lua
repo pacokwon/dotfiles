@@ -1,18 +1,5 @@
 ---@diagnostic disable: missing-fields
 
--- INFO: introduction
--- this is a minimal neovim configuration written in lua. this is not meant to
--- be a distribution, but rather a template for you to build upon and/or a
--- reference for how to configure neovim using lua in the latest version.
-
--- INFO: options
--- these change the default neovim behaviours using the 'vim.opt' API.
--- see `:h vim.opt` for more details.
--- run `:h '{option_name}'` to see what they do and what values they can take.
--- for example, `:h 'number'` for `vim.opt.number`.
-
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -70,14 +57,6 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
 vim.o.list = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -102,47 +81,6 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
-
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- add a newline below the cursor
-vim.keymap.set('n', '<leader>o', 'o<ESC>k0')
-
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', 'gl', function()
-  vim.diagnostic.open_float()
-end, { desc = '[G]oto Diagnostic on Current [L]ine' })
-vim.keymap.set('n', 'gn', function()
-  vim.diagnostic.jump { count = 1, float = false }
-end, { desc = '[G]oto [N]ext Diagnostic' })
-
-vim.keymap.set('n', 'gp', function()
-  vim.diagnostic.jump { count = -1, float = false }
-end, { desc = '[G]oto [P]revious Diagnostic' })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- line navigation
-vim.keymap.set('n', '<C-j>', '10j', { desc = 'Move 10 lines down' })
-vim.keymap.set('n', '<C-k>', '10k', { desc = 'Move 10 lines up' })
-vim.keymap.set('v', '<C-j>', '10j', { desc = 'Move 10 lines down' })
-vim.keymap.set('v', '<C-k>', '10k', { desc = 'Move 10 lines up' })
-
--- buffer navigation
-vim.keymap.set('n', '<C-N>', '<cmd>bnext<CR>', { desc = 'Goto Next Buffer' })
-vim.keymap.set('n', '<C-P>', '<cmd>bprevious<CR>', { desc = 'Goto Previous Buffer' })
 
 -- Diagnostic Config
 -- See :help vim.diagnostic.Opts
@@ -177,166 +115,6 @@ vim.diagnostic.config {
   },
 }
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- line navigation
-vim.keymap.set('n', '<C-j>', '10j', { desc = 'Move 10 lines down' })
-vim.keymap.set('n', '<C-k>', '10k', { desc = 'Move 10 lines up' })
-vim.keymap.set('v', '<C-j>', '10j', { desc = 'Move 10 lines down' })
-vim.keymap.set('v', '<C-k>', '10k', { desc = 'Move 10 lines up' })
-
--- buffer navigation
-vim.keymap.set('n', '<C-N>', '<cmd>bnext<CR>', { desc = 'Goto Next Buffer' })
-vim.keymap.set('n', '<C-P>', '<cmd>bprevious<CR>', { desc = 'Goto Previous Buffer' })
-
-vim.keymap.set('n', '<leader>r', function()
-  local filename = vim.fn.expand '%:p' -- full path of current file
-  local output = vim.fn.expand '%:p:r' -- file path without extension
-
-  local input = ''
-  local input_prompt = ''
-  local cmd = ''
-  if vim.bo.filetype == 'c' or vim.bo.filetype == 'cpp' then
-    if vim.loop.fs_stat 'input.txt' then
-      input = ' < ' .. 'input.txt'
-      input_prompt = 'echo "input.txt found. Piping to stdin...";'
-    end
-
-    cmd = string.format('g++ -std=c++20 -O2 %s -o %s && %s%s', filename, output, output, input)
-  elseif vim.bo.filetype == 'python' then
-    cmd = string.format('python %s', filename)
-  end
-
-  -- Open a horizontal split terminal and run the command
-  vim.cmd(string.format('vsp | terminal %s %s', input_prompt, cmd))
-  -- Optional: enter insert mode in the terminal automatically
-  vim.cmd 'startinsert'
-end, { noremap = true, silent = true })
-
-vim.api.nvim_create_user_command('TOhtmlSelection', function()
-  local function inline_with_juice(in_path)
-    local out_path = vim.fn.tempname() .. '.inlined.html'
-    local cmd = { 'npx', '--yes', 'juice', '--extra-css',
-      '* { font-family: Roboto Mono, monospace; font-weight: 500 }', in_path, out_path }
-    local res = vim.system(cmd, { text = true }):wait()
-
-    if res.code ~= 0 then
-      vim.notify('juice failed:\n' .. (res.stderr or ''), vim.log.levels.ERROR)
-      return nil
-    end
-
-    return out_path
-  end
-
-  -- Get visual selection line range from marks '< and '>
-  local s = vim.fn.getpos "'<" -- {bufnum, lnum, col, off}
-  local e = vim.fn.getpos "'>"
-
-  local start_line, end_line = s[2], e[2]
-  if start_line == 0 or end_line == 0 then
-    vim.notify('No visual selection found', vim.log.levels.WARN)
-    return
-  end
-  if start_line > end_line then
-    start_line, end_line = end_line, start_line
-  end
-
-  -- Optional: disable indent guides so virtual text doesn't get captured
-  pcall(vim.cmd, 'IBLDisable')
-  local colo = vim.g.colors_name
-  pcall(vim.cmd.colorscheme, 'catppuccin-latte')
-
-  local winid = vim.api.nvim_get_current_win()
-  local lines = require('tohtml').tohtml(winid, {
-    range = { start_line, end_line }, -- 1-based inclusive line range
-  })
-
-  pcall(vim.cmd.colorscheme, colo)
-  pcall(vim.cmd, 'IBLEnable')
-
-  local tmp_in = vim.fn.tempname() .. '.html'
-  vim.fn.writefile(lines, tmp_in)
-
-  local tmp_out = inline_with_juice(tmp_in)
-  if not tmp_out then
-    return
-  end
-
-  vim.cmd('silent !open ' .. vim.fn.fnameescape(tmp_out))
-end, { range = true })
-
-vim.api.nvim_create_user_command('TOKeynoteSelection', function()
-  local s = vim.fn.getpos "'<"
-  local e = vim.fn.getpos "'>"
-  local start_line, end_line = s[2], e[2]
-  if start_line == 0 or end_line == 0 then
-    vim.notify('No visual selection found', vim.log.levels.WARN)
-    return
-  end
-  if start_line > end_line then
-    start_line, end_line = end_line, start_line
-  end
-
-  pcall(vim.cmd, 'IBLDisable')
-  local colo = vim.g.colors_name
-  pcall(vim.cmd.colorscheme, 'catppuccin-latte')
-
-  local winid = vim.api.nvim_get_current_win()
-  local lines = require('tohtml').tohtml(winid, {
-    range = { start_line, end_line },
-  })
-
-  pcall(vim.cmd.colorscheme, colo)
-  pcall(vim.cmd, 'IBLEnable')
-
-  local html_raw = table.concat(lines, '\n')
-  -- 1. Fix Neovim's leading hyphens in CSS class names (e.g., .-variable -> .hl-variable)
-  local sanitized_html = html_raw:gsub('%.%-([%w_-]+)', '.hl-%1'):gsub('class="%-([%w_-]+)"', 'class="hl-%1"')
-
-  -- 2. Strip background-color declarations entirely
-  sanitized_html = sanitized_html:gsub('background%-color%s*:%s*#[%x]+;?', '')
-
-  -- 3. Remove body styling rule so RTF does not inherit document canvas fill
-  sanitized_html = sanitized_html:gsub('body%s*{[^}]*}', '')
-
-  local tmp_html = vim.fn.tempname() .. '.html'
-  local tmp_rtf = vim.fn.tempname() .. '.rtf'
-  vim.fn.writefile(vim.split(sanitized_html, '\n'), tmp_html)
-
-  -- Convert via textutil to an actual RTF file, then set RTF pasteboard directly
-  local cmd = string.format(
-    "textutil -convert rtf %s -output %s && osascript -e 'set the clipboard to (read (POSIX file \"%s\") as «class RTF »)'",
-    vim.fn.shellescape(tmp_html),
-    vim.fn.shellescape(tmp_rtf),
-    tmp_rtf
-  )
-
-  local res = vim.fn.system(cmd)
-  vim.fn.delete(tmp_html)
-  vim.fn.delete(tmp_rtf)
-
-  if vim.v.shell_error == 0 then
-    vim.notify('Copied styled RTF to Keynote clipboard!', vim.log.levels.INFO)
-  else
-    vim.notify('Failed to copy: ' .. res, vim.log.levels.ERROR)
-  end
-end, { range = true })
-
-vim.keymap.set('v', '<leader>H', ':TOhtmlSelection<CR>', { silent = true })
-vim.keymap.set('v', '<leader>K', ':TOKeynoteSelection<CR>', { silent = true })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -352,8 +130,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     vim.fn.winrestview(view)
   end,
 })
-
-vim.cmd.packadd 'nvim.tohtml'
 
 vim.pack.add({
   'https://github.com/NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
@@ -413,6 +189,3 @@ require('which-key').setup {
     { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
   },
 }
-
--- uncomment to enable automatic plugin updates
--- vim.pack.update()
