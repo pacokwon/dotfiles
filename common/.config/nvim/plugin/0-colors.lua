@@ -123,4 +123,5 @@ require('modus-themes').setup {
 --
 -- return colorschemes
 
-vim.cmd.colorscheme 'modus'
+vim.cmd.colorscheme 'modus_vivendi'
+-- vim.cmd.colorscheme 'catppuccin-latte'

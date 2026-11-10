@@ -9,7 +9,10 @@ require('lean').setup {
   mappings = true,
   abbreviations = {
     enable = true,
-    leader = '\\'
+    leader = '\\',
+    extra = {
+      typecolon = '⦂',
+    },
   }
 }
 

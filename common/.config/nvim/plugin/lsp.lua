@@ -152,6 +152,7 @@ local servers = {
   ruff = {},
   ocamllsp = {},
   biome = {},
+  astro = {}, -- astro-ls comes from the project's nix devShell
   vtsls = {
     root_dir = function(_, callback)
       local deno_dir = vim.fs.root(0, { 'deno.json', 'deno.jsonc' })
@@ -174,6 +175,8 @@ local servers = {
     },
   },
   hls = {},
+  tinymist = {},
+  racket_langserver = {}
 }
 
 for server, config in pairs(servers) do
