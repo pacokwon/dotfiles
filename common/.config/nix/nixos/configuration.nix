@@ -19,7 +19,10 @@
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs-nixos;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
   };
 
@@ -80,9 +83,11 @@
   };
 
   programs.dconf.enable = true;
-  programs.dconf.profiles.user.databases = [{
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-  }];
+  programs.dconf.profiles.user.databases = [
+    {
+      settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    }
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

@@ -13,6 +13,7 @@ let
       dvisvgm
       kotex-utf
       latexmk
+      pdfjam
       xetex # Recommended engine for kotex
       xetexko
     ]

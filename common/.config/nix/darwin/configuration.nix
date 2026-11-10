@@ -19,11 +19,26 @@
     };
   };
 
-  nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.claude-code.overlays.default
+    # sioyek looks for its configs and shaders in Contents/Resources, but the
+    # darwin build installs them into Contents/MacOS
+    (final: prev: {
+      sioyek = prev.sioyek.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          app=$out/Applications/sioyek.app/Contents
+          for f in prefs.config keys.config tutorial.pdf shaders; do
+            cp -r $app/MacOS/$f $app/Resources/
+          done
+        '';
+      });
+    })
+  ];
 
   environment.systemPackages = (import ../common/packages.nix { inherit pkgs; }) ++ [
     pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
     inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli # `agy`
   ];
 
   homebrew = {
@@ -35,6 +50,7 @@
     brews = [
       "antidote"
       "laishulu/homebrew/macism"
+      "omlahore/tap/removemacai"
       "tpm"
       "mas"
       "gmp"

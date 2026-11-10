@@ -17,5 +17,6 @@
     typst
     vtsls
     yarn-berry_3
+    tinymist
   ];
 }

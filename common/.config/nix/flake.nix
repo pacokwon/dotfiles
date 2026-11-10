@@ -18,6 +18,8 @@
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     claude-code.url = "github:sadjow/claude-code-nix";
+    # Not following our nixpkgs so we keep hitting numtide's binary cache.
+    llm-agents.url = "github:numtide/llm-agents.nix";
     lean-lsp-mcp = {
       url = "github:oOo0oOo/lean-lsp-mcp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +30,10 @@
     # while casks are installed. Let Homebrew manage them via the API instead.
     homebrew-laishulu = {
       url = "github:laishulu/homebrew-homebrew";
+      flake = false;
+    };
+    homebrew-omlahore = {
+      url = "github:omlahore/homebrew-tap";
       flake = false;
     };
 
@@ -50,11 +56,16 @@
       mac-app-util,
       nix-homebrew,
       homebrew-laishulu,
+      homebrew-omlahore,
       lanzaboote,
       ...
     }:
     let
       linuxSystem = "x86_64-linux";
+      homebrewTaps = {
+        "laishulu/homebrew-homebrew" = homebrew-laishulu;
+        "omlahore/homebrew-tap" = homebrew-omlahore;
+      };
     in
     {
       # ---- macOS (nix-darwin) ----
@@ -81,14 +92,14 @@
               user = "pacokwon";
 
               # Optional: Declarative tap management
-              taps = {
-                "laishulu/homebrew-homebrew" = homebrew-laishulu;
-              };
+              taps = homebrewTaps;
 
               # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
               mutableTaps = false;
               autoMigrate = true;
             };
+
+            homebrew.taps = builtins.attrNames homebrewTaps;
 
             # Set Git commit hash for darwin-version.
             system.configurationRevision = self.rev or self.dirtyRev or null;
