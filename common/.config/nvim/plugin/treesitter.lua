@@ -12,6 +12,7 @@ local parsers = {
   'go',
   'gitcommit',
   'html',
+  'java',
   'javascript',
   'lua',
   'luadoc',

@@ -1,4 +1,10 @@
-vim.pack.add { 'https://github.com/neovim/nvim-lspconfig' }
+vim.pack.add {
+  'https://github.com/neovim/nvim-lspconfig',
+  -- nvim-java and its dependencies
+  'https://github.com/MunifTanjim/nui.nvim',
+  'https://github.com/mfussenegger/nvim-dap',
+  'https://github.com/nvim-java/nvim-java',
+}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -125,6 +131,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- registers the base jdtls config, so it must run before vim.lsp.config('jdtls', ...) below
+require('java').setup {
+  spring_boot_tools = { enable = false },
+  -- use the nix-provided jdk21 (JAVA_HOME) instead of downloading one
+  jdk = { path = vim.env.JAVA_HOME },
+}
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -175,6 +188,14 @@ local servers = {
     },
   },
   hls = {},
+  jdtls = {
+    -- fall back to the file's directory when there's no project root, so jdtls
+    -- treats standalone files as an invisible project instead of syntax-only
+    root_dir = function(bufnr, on_dir)
+      local markers = require('java-core.ls.servers.jdtls.root').get_root_markers()
+      on_dir(vim.fs.root(bufnr, markers) or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
+    end,
+  },
   tinymist = {},
   racket_langserver = {}
 }
