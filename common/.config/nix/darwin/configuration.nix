@@ -46,6 +46,7 @@
     onActivation = {
       upgrade = true;
       cleanup = "uninstall";
+      extraFlags = [ "--quiet" ]; # hide "Using <pkg>" lines from brew bundle
     };
     brews = [
       "antidote"
