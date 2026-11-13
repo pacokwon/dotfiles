@@ -20,18 +20,7 @@
   };
 
   nixpkgs.overlays = [
-    # sioyek looks for its configs and shaders in Contents/Resources, but the
-    # darwin build installs them into Contents/MacOS
-    (final: prev: {
-      sioyek = prev.sioyek.overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + ''
-          app=$out/Applications/sioyek.app/Contents
-          for f in prefs.config keys.config tutorial.pdf shaders; do
-            cp -r $app/MacOS/$f $app/Resources/
-          done
-        '';
-      });
-    })
+    (import ./overlays/sioyek.nix)
   ];
 
   environment.systemPackages = (import ../common/packages.nix { inherit pkgs inputs; }) ++ [
