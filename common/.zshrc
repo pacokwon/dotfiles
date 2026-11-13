@@ -4,3 +4,7 @@ if [[ $(uname) == "Darwin" ]]; then
 elif command -v nixos-version > /dev/null; then
     source "$HOME"/.zsh/nixos.zsh
 fi
+
+# Option+Left/Right word movement (Ghostty sends real alt-arrows; its esc:b/esc:f defaults are unbound)
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word

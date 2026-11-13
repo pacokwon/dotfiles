@@ -16,9 +16,12 @@ shell-integration-features = no-cursor
 quit-after-last-window-closed = true
 
 window-decoration = none
+# font-feature = +calt, +liga, +dlig
 font-feature = -calt, -liga, -dlig
 
 macos-option-as-alt = left
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
 
 clipboard-paste-protection = false
 
