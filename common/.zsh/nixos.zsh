@@ -1,10 +1,5 @@
-if [[ ! -d $HOME/.antidote ]]; then
-    git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-    chmod u+x $HOME/.antidote/antidote
-fi
-
-source $HOME/.antidote/antidote.zsh
-antidote load
+# plugins are installed by nix (common/zsh.nix); /etc/zshrc has already run compinit
+source /etc/zsh/plugins.zsh
 
 set -o emacs
 # Bind Alt + Left Arrow to move back one word

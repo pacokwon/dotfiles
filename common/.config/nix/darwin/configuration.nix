@@ -36,7 +36,6 @@
       extraFlags = [ "--quiet" ]; # hide "Using <pkg>" lines from brew bundle
     };
     brews = [
-      "antidote"
       "laishulu/homebrew/macism"
       "omlahore/tap/removemacai"
       "tpm"

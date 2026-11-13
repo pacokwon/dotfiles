@@ -1,8 +1,10 @@
-source $(brew --prefix antidote)/share/antidote/antidote.zsh
-
-antidote load
+# put the native homebrew on PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 autoload -U compinit && compinit
+
+# plugins are installed by nix (common/zsh.nix)
+source /etc/zsh/plugins.zsh
 setopt COMPLETE_IN_WORD
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
