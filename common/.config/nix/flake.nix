@@ -17,7 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    claude-code.url = "github:sadjow/claude-code-nix";
     # Not following our nixpkgs so we keep hitting numtide's binary cache.
     llm-agents.url = "github:numtide/llm-agents.nix";
     lean-lsp-mcp = {

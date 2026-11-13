@@ -11,8 +11,6 @@
     ../common/zsh.nix
   ];
 
-  nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -151,7 +149,7 @@
   };
 
   environment.systemPackages =
-    (import ../common/packages.nix { inherit pkgs; })
+    (import ../common/packages.nix { inherit pkgs inputs; })
     ++ (with pkgs; [
       # NixOS-only packages (GUI apps, wayland, hardware, linux-specific)
       wezterm

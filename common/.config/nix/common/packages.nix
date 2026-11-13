@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, inputs }:
 with pkgs;
 [
   # editors / core
@@ -41,7 +41,7 @@ with pkgs;
   ruff
 
   # ai
-  claude-code
+  inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
 
   # prompt
   pure-prompt

@@ -20,7 +20,6 @@
   };
 
   nixpkgs.overlays = [
-    inputs.claude-code.overlays.default
     # sioyek looks for its configs and shaders in Contents/Resources, but the
     # darwin build installs them into Contents/MacOS
     (final: prev: {
@@ -35,8 +34,7 @@
     })
   ];
 
-  environment.systemPackages = (import ../common/packages.nix { inherit pkgs; }) ++ [
-    pkgs.claude-code # or pkgs.claude-code-bun if you prefer the bun-based build
+  environment.systemPackages = (import ../common/packages.nix { inherit pkgs inputs; }) ++ [
     inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli # `agy`
   ];
