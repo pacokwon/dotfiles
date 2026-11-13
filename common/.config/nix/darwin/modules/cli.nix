@@ -29,5 +29,6 @@
     zola
     zsh
     oterm
+    zellij
   ];
 }
