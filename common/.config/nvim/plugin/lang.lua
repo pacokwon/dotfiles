@@ -1,11 +1,5 @@
-vim.pack.add {
-  'https://github.com/Julian/lean.nvim',
-  'https://github.com/whonore/coqtail',
-  'https://github.com/tomtomjhj/vsrocq.nvim',
-  'https://github.com/tomtomjhj/coq-lsp.nvim',
-}
-
-require('lean').setup {
+-- lean.nvim reads this lazily from its ftplugin (lean.setup{} was removed)
+vim.g.lean_config = {
   mappings = true,
   abbreviations = {
     enable = true,
@@ -13,7 +7,14 @@ require('lean').setup {
     extra = {
       typecolon = '⦂',
     },
-  }
+  },
+}
+
+vim.pack.add {
+  'https://github.com/Julian/lean.nvim',
+  'https://github.com/whonore/coqtail',
+  'https://github.com/tomtomjhj/vsrocq.nvim',
+  'https://github.com/tomtomjhj/coq-lsp.nvim',
 }
 
 vim.g.coqtail_treat_stderr_as_warning = 1
