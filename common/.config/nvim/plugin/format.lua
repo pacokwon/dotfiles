@@ -25,14 +25,13 @@ require('conform').setup {
   formatters_by_ft = {
     lua = { 'stylua' },
     markdown = { 'dprint' },
-    -- Conform can also run multiple formatters sequentially
-    -- python = { "isort", "black" },
-    --
-    -- You can use 'stop_after_first' to run the first available formatter from the list
-    -- javascript = { 'prettierd', 'prettier', stop_after_first = true },
-    -- javascript = { 'deno_fmt' },
     cpp = { 'clang-format' },
-    typescript = { 'biome' },
+    typescript = { 'oxfmt', 'biome', stop_after_first = true },
+    typescriptreact = { 'oxfmt', 'biome', stop_after_first = true },
+    javascript = { 'oxfmt', 'biome', stop_after_first = true },
+    javascriptreact = { 'oxfmt', 'biome', stop_after_first = true },
+    json = { 'oxfmt' },
+    jsonc = { 'oxfmt' },
   },
 }
 

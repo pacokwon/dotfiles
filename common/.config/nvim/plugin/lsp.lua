@@ -150,6 +150,44 @@ require('java').setup {
 --  @class LspServersConfig
 --  @field mason table<string, vim.lsp.Config>
 --  @field others table<string, vim.lsp.Config>
+
+-- True when the nearest node_modules has TypeScript 7+, whose language server
+-- is `tsc --lsp` (handled by the `tsc` config) rather than tsserver (vtsls).
+local function uses_ts7(bufnr)
+  local root = vim.fs.root(bufnr, 'node_modules')
+  local f = root and io.open(vim.fs.joinpath(root, 'node_modules/typescript/package.json'))
+  if not f then
+    return false
+  end
+  local ok, pkg = pcall(vim.json.decode, f:read('*a'))
+  f:close()
+  local version = ok and vim.version.parse((pkg or {}).version or '') or nil
+  return version ~= nil and version.major >= 7
+end
+
+-- lspconfig's tsc config, captured before vim.lsp.config('tsc', ...) below
+-- overrides it. Its cmd and root_dir share a private cache of the resolved
+-- binary, so both must come from this same copy.
+local tsc_base = vim.lsp.config.tsc
+
+-- Wraps a server's own root detection so it only starts where its binary is
+-- available (the project's node_modules/.bin or $PATH). Servers like oxlint
+-- and tailwindcss otherwise attach to any package.json/.git project and error
+-- in projects that don't use them.
+local function when_installed(name, bin)
+  local base_root_dir = vim.lsp.config[name].root_dir
+  return {
+    root_dir = function(bufnr, on_dir)
+      base_root_dir(bufnr, function(root)
+        local local_bin = root and vim.fs.joinpath(root, 'node_modules/.bin', bin)
+        if (local_bin and vim.fn.executable(local_bin) == 1) or vim.fn.executable(bin) == 1 then
+          on_dir(root)
+        end
+      end)
+    end,
+  }
+end
+
 local servers = {
   denols = {
     root_markers = { 'deno.json', 'deno.jsonc' },
@@ -166,12 +204,24 @@ local servers = {
   ocamllsp = {},
   biome = {},
   astro = {}, -- astro-ls comes from the project's nix devShell
+  oxlint = when_installed('oxlint', 'oxlint'),
+  tailwindcss = when_installed('tailwindcss', 'tailwindcss-language-server'),
+  tsc = {
+    -- Only attach in TypeScript 7+ projects; elsewhere vtsls handles TS and
+    -- tsc would just warn that it found no `--lsp`-capable binary.
+    cmd = tsc_base.cmd,
+    root_dir = function(bufnr, on_dir)
+      if uses_ts7(bufnr) then
+        tsc_base.root_dir(bufnr, on_dir)
+      end
+    end,
+  },
   vtsls = {
-    root_dir = function(_, callback)
-      local deno_dir = vim.fs.root(0, { 'deno.json', 'deno.jsonc' })
-      local root_dir = vim.fs.root(0, { 'tsconfig.json', 'jsconfig.json', 'package.json' })
+    root_dir = function(bufnr, callback)
+      local deno_dir = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc' })
+      local root_dir = vim.fs.root(bufnr, { 'tsconfig.json', 'jsconfig.json', 'package.json' })
 
-      if deno_dir == nil then
+      if deno_dir == nil and not uses_ts7(bufnr) then
         callback(root_dir)
       end
     end,
