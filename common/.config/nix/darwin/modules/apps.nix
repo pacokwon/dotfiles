@@ -12,6 +12,8 @@
         ms-toolsai.jupyter
         ms-toolsai.jupyter-renderers
         ms-python.python
+        ms-python.vscode-pylance
+        ms-python.debugpy
       ];
     })
   ];

@@ -25,7 +25,6 @@
 
   environment.systemPackages = (import ../common/packages.nix { inherit pkgs inputs; }) ++ [
     inputs.lean-lsp-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli # `agy`
   ];
 
   homebrew = {
@@ -73,6 +72,7 @@
       "thunderbird"
       "ungoogled-chromium"
       "zulip"
+      "adobe-acrobat-reader"
     ];
     masApps = {
       KakaoTalk = 869223134;
