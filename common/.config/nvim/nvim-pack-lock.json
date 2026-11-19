@@ -93,6 +93,10 @@
       "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
+    "nvim-dap-view": {
+      "rev": "bfaf50b3f513f78d8ab3e5fe02128dda05be4945",
+      "src": "https://github.com/igorlfs/nvim-dap-view"
+    },
     "nvim-java": {
       "rev": "db5536b4cb3da153084e50016596fd0e3a319aae",
       "src": "https://github.com/nvim-java/nvim-java"

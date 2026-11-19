@@ -140,6 +140,8 @@ vim.pack.add({
   'https://github.com/j-hui/fidget.nvim',
 }, { confirm = false })
 
+require('guess-indent').setup {}
+
 vim.pack.add { 'https://github.com/folke/which-key.nvim' }
 
 require('which-key').setup {
